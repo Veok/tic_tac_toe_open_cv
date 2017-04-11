@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import org.opencv.core.Core;
 
 public class TicTacToe extends Application {
@@ -14,7 +15,7 @@ public class TicTacToe extends Application {
         primaryStage.setTitle("TicTacToe");
         primaryStage.setScene(new Scene(fxmlLoader.load(), 600, 300));
         primaryStage.show();
-        primaryStage.setOnCloseRequest(event -> {
+        primaryStage.setOnCloseRequest((WindowEvent event) -> {
             Controller controller = fxmlLoader.getController();
             if (controller.isRunning()) {
                 controller.turnOff();
