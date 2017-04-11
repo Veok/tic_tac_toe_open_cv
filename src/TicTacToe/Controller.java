@@ -58,9 +58,9 @@ public class Controller {
         Size sizeOfBoard = new Size(4, 4);
         MatOfPoint2f points = new MatOfPoint2f();
 
-        final boolean chessboardCorners = Calib3d.findChessboardCorners(getMat(), sizeOfBoard, points);
+        final boolean boardCorners = Calib3d.findChessboardCorners(getMat(), sizeOfBoard, points);
 
-        if (chessboardCorners) {
+        if (boardCorners) {
             Mat gray = new Mat();
             Imgproc.cvtColor(getMat(),gray, Imgproc.COLOR_BGR2GRAY);
             Imgproc.cornerSubPix(gray, points, new Size(11, 11), new Size(-1, 1),
