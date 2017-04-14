@@ -1,4 +1,4 @@
-package TicTacToe;
+package TicTacToe.service.video;
 
 
 import javafx.application.Platform;
@@ -13,14 +13,14 @@ import java.awt.image.DataBufferByte;
 /**
  * @author Lelental on 06.04.2017.
  */
-public class VideoHandler {
+public class CameraService {
 
 
-    static Image toFxImage(Mat mat) {
+    public static Image toFxImage(Mat mat) {
         return SwingFXUtils.toFXImage(matToBufferedImage(mat), null);
     }
 
-    static <T> void onFXThread(final ObjectProperty<T> property, final T value) {
+    public static <T> void onFXThread(final ObjectProperty<T> property, final T value) {
         Platform.runLater(() -> property.set(value));
     }
 
