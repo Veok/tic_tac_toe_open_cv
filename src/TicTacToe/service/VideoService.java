@@ -1,7 +1,6 @@
-package TicTacToe.service.video;
+package TicTacToe.service;
 
 import org.opencv.core.*;
-import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.videoio.VideoCapture;
 
@@ -21,7 +20,10 @@ public class VideoService {
 
     private VideoCapture videoCapture = new VideoCapture();
 
+    private Point pointOfCircle;
+
     public VideoService() {
+
     }
 
     public void detectCircle() {
@@ -31,18 +33,18 @@ public class VideoService {
         Imgproc.cvtColor(mat, gray, Imgproc.COLOR_RGBA2GRAY);
         Imgproc.cvtColor(mat, hsv, Imgproc.COLOR_RGB2HSV);
         Imgproc.GaussianBlur(gray, gray, new Size(9, 9), 2, 2);
-//TODO find bgr codes for blue
+
         Core.inRange(hsv, new Scalar(160, 100, 100), new Scalar(179, 255, 255), circles);
 
-        Imgproc.HoughCircles(gray, circles, Imgproc.CV_HOUGH_GRADIENT, 2, gray.rows() / 8, 100, 100, 20, 80);
+        Imgproc.HoughCircles(gray, circles, Imgproc.CV_HOUGH_GRADIENT, 2, gray.rows() / 8, 90, 100, 20, 80);
 
         for (int i = 0; i < circles.cols(); i++) {
             double[] circle = circles.get(0, i);
             Point pt = new Point(Math.round(circle[0]), Math.round(circle[1]));
+            setPointOfCircle(pt);
             int radius = (int) Math.round(circle[2]);
             Imgproc.circle(mat, pt, radius, new Scalar(0, 255, 0), 1);
             Imgproc.circle(mat, pt, radius, new Scalar(0, 0, 255), 2);
-
         }
     }
 
@@ -63,6 +65,24 @@ public class VideoService {
         Imgproc.line(mat, new Point(0, CAMERA_HEIGHT / 3 * 2),
                 new Point(CAMERA_WIDTH, CAMERA_HEIGHT / 3 * 2), scalar, thickness);
 
+    }
+
+    public void drawCircle() {
+
+        if (getPointOfCircle() != null) {
+            int circleThickness = 4;
+
+
+        }
+
+    }
+
+    public Point getPointOfCircle() {
+        return pointOfCircle;
+    }
+
+    public void setPointOfCircle(Point pointOfCircle) {
+        this.pointOfCircle = pointOfCircle;
     }
 
     public Mat getMat() {

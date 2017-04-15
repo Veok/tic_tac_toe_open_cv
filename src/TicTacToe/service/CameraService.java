@@ -1,4 +1,4 @@
-package TicTacToe.service.video;
+package TicTacToe.service;
 
 
 import TicTacToe.Controller;
@@ -40,6 +40,7 @@ public class CameraService {
                 CameraService.toFxImage(image);
                 videoService.detectCircle();
                 videoService.drawGameBoard();
+                videoService.drawCircle();
                 CameraService.onFXThread(controller.getFrame().imageProperty(), toFxImage(image));
             };
             timer = Executors.newSingleThreadScheduledExecutor();

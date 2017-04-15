@@ -1,6 +1,6 @@
 package TicTacToe;
 
-import TicTacToe.service.video.CameraService;
+import TicTacToe.service.CameraService;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 
