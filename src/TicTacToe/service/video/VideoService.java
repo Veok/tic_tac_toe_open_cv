@@ -9,13 +9,13 @@ import org.opencv.videoio.VideoCapture;
  */
 public class VideoService {
 
-    public final static int CAMERA_WIDTH_ID = 3;
-    public final static int CAMERA_HEIGHT_ID = 4;
-    public final static int CAMERA_WIDTH = 960;
-    public final static int CAMERA_HEIGHT = 540;
+    final static int CAMERA_WIDTH_ID = 3;
+    final static int CAMERA_HEIGHT_ID = 4;
+    final static int CAMERA_WIDTH = 960;
+    final static int CAMERA_HEIGHT = 540;
 
-    private static Mat mat = new Mat();
-    private static Mat gray = new Mat();
+    private  Mat mat = new Mat();
+    private  Mat gray = new Mat();
 
     private VideoCapture videoCapture = new VideoCapture();
 

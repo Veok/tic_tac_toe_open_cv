@@ -1,6 +1,7 @@
 package TicTacToe.service.video;
 
 
+import TicTacToe.Controller;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.embed.swing.SwingFXUtils;
@@ -9,19 +10,52 @@ import org.opencv.core.*;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Lelental on 06.04.2017.
  */
 public class CameraService {
 
+    private VideoService videoService = new VideoService();
+    private ScheduledExecutorService timer;
+    private boolean isRunning;
+    private final int CAMERA_ID = 0;
 
-    public static Image toFxImage(Mat mat) {
-        return SwingFXUtils.toFXImage(matToBufferedImage(mat), null);
+    public CameraService() {
+        this.isRunning = true;
     }
 
-    public static <T> void onFXThread(final ObjectProperty<T> property, final T value) {
-        Platform.runLater(() -> property.set(value));
+
+    public void initializeCamera(Controller controller) {
+        videoService.getVideoCapture().open(CAMERA_ID);
+        videoService.getVideoCapture().set(VideoService.CAMERA_WIDTH_ID, VideoService.CAMERA_WIDTH);
+        videoService.getVideoCapture().set(VideoService.CAMERA_HEIGHT_ID, VideoService.CAMERA_HEIGHT);
+
+        if (isRunning) {
+            Runnable runnable = () -> {
+                Mat image = videoService.getMat();
+                CameraService.toFxImage(image);
+                //detectCircle();
+                videoService.drawGameBoard();
+                CameraService.onFXThread(controller.getFrame().imageProperty(), toFxImage(image));
+            };
+            timer = Executors.newSingleThreadScheduledExecutor();
+            timer.scheduleAtFixedRate(runnable, 0, 33, TimeUnit.MILLISECONDS);
+        } else {
+            timer.shutdown();
+            videoService.getVideoCapture().release();
+        }
+    }
+
+    public boolean isRunning() {
+        return isRunning;
+    }
+
+    public void turnOff() {
+        isRunning = false;
     }
 
     private static BufferedImage matToBufferedImage(Mat original) {
@@ -40,4 +74,14 @@ public class CameraService {
 
         return image;
     }
+
+    private static Image toFxImage(Mat mat) {
+        return SwingFXUtils.toFXImage(matToBufferedImage(mat), null);
+    }
+
+    private static <T> void onFXThread(final ObjectProperty<T> property, final T value) {
+        Platform.runLater(() -> property.set(value));
+    }
+
+
 }

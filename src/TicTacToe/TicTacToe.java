@@ -18,9 +18,9 @@ public class TicTacToe extends Application {
         primaryStage.show();
         primaryStage.setOnCloseRequest((WindowEvent event) -> {
             Controller controller = fxmlLoader.getController();
-            if (controller.isRunning()) {
-                controller.turnOff();
-                controller.initializeCamera(controller);
+            if (controller.getCameraService().isRunning()) {
+                controller.getCameraService().turnOff();
+                controller.getCameraService().initializeCamera(controller);
             }
             System.exit(0);
         });
