@@ -25,11 +25,5 @@ public class Cell {
     public Cell() {
     }
 
-    public boolean isSet() {
-        return isSet;
-    }
 
-    public void setSet(boolean set) {
-        isSet = set;
-    }
 }
