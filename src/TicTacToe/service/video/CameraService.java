@@ -38,7 +38,7 @@ public class CameraService {
             Runnable runnable = () -> {
                 Mat image = videoService.getMat();
                 CameraService.toFxImage(image);
-                //detectCircle();
+                videoService.detectCircle();
                 videoService.drawGameBoard();
                 CameraService.onFXThread(controller.getFrame().imageProperty(), toFxImage(image));
             };
