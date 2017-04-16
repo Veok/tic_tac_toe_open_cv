@@ -1,5 +1,6 @@
 package TicTacToe.service;
 
+import TicTacToe.model.Cell;
 import org.opencv.core.*;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.videoio.VideoCapture;
@@ -19,12 +20,14 @@ public class VideoService {
     private Mat hsv;
     private VideoCapture videoCapture;
     private Point pointOfCircle;
+    private CellService cellService;
 
     public VideoService() {
         this.mat = new Mat();
         this.gray = new Mat();
         this.hsv = new Mat();
         this.videoCapture = new VideoCapture();
+        this.cellService = new CellService();
     }
 
     public void detectCircle() {
@@ -35,17 +38,13 @@ public class VideoService {
         Imgproc.cvtColor(mat, hsv, Imgproc.COLOR_RGB2HSV);
         Imgproc.GaussianBlur(gray, gray, new Size(9, 9), 2, 2);
 
-        Core.inRange(hsv, new Scalar(160, 100, 100), new Scalar(179, 255, 255), circles);
-
-        Imgproc.HoughCircles(gray, circles, Imgproc.CV_HOUGH_GRADIENT, 2, gray.rows() / 8, 90, 100, 20, 80);
+        Core.inRange(hsv, new Scalar(252, 179, 82), new Scalar(227, 141, 31), circles);
+        Imgproc.HoughCircles(gray, circles, Imgproc.CV_HOUGH_GRADIENT, 2, gray.rows() / 8, 90, 100, 20, 60);
 
         for (int i = 0; i < circles.cols(); i++) {
             double[] circle = circles.get(0, i);
             Point pt = new Point(Math.round(circle[0]), Math.round(circle[1]));
             setPointOfCircle(pt);
-            int radius = (int) Math.round(circle[2]);
-            Imgproc.circle(mat, pt, radius, new Scalar(0, 255, 0), 1);
-            Imgproc.circle(mat, pt, radius, new Scalar(0, 0, 255), 2);
         }
     }
 
@@ -68,14 +67,23 @@ public class VideoService {
 
     }
 
-    //TODO
     public void drawCircle() {
 
         if (getPointOfCircle() != null) {
+
             int circleThickness = 4;
+            double x = getPointOfCircle().x;
+            double y = getPointOfCircle().y;
 
+            for (Cell s : cellService.getListOfCells()) {
+                if (s.isPainted()) {
+                    Imgproc.circle(mat, s.getCenterPoint(), 20, new Scalar(222, 1, 34), circleThickness);
+                }
+                if (x > s.getMinX() && x < s.getMaxX() && y > s.getMinY() && y < s.getMaxY()) {
+                    s.setPainted();
+                }
+            }
         }
-
     }
 
     public Mat getMat() {
