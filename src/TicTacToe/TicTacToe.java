@@ -10,16 +10,18 @@ import org.opencv.core.Core;
 public class TicTacToe extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainStage.fxml"));
         primaryStage.setTitle("TicTacToe");
-        primaryStage.setScene(new Scene(fxmlLoader.load(), 600, 300));
+        primaryStage.setScene(new Scene(fxmlLoader.load(), 960, 625));
+        primaryStage.setResizable(false);
         primaryStage.show();
         primaryStage.setOnCloseRequest((WindowEvent event) -> {
             Controller controller = fxmlLoader.getController();
-            if (controller.isRunning()) {
-                controller.turnOff();
-                controller.initializeCamera(controller);
+            if (controller.getCameraService().isRunning()) {
+                controller.getCameraService().turnOff();
+                controller.getCameraService().initializeCamera(controller);
             }
             System.exit(0);
         });
