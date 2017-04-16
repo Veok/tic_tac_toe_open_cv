@@ -11,6 +11,7 @@ public class TicTacToe extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainStage.fxml"));
         primaryStage.setTitle("TicTacToe");
         primaryStage.setScene(new Scene(fxmlLoader.load(), 960, 625));

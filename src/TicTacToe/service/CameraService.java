@@ -19,12 +19,14 @@ import java.util.concurrent.TimeUnit;
  */
 public class CameraService {
 
-    private VideoService videoService = new VideoService();
-    private ScheduledExecutorService timer;
-    private boolean isRunning;
     private final int CAMERA_ID = 0;
 
+    private VideoService videoService;
+    private ScheduledExecutorService timer;
+    private boolean isRunning;
+
     public CameraService() {
+        this.videoService = new VideoService();
         this.isRunning = true;
     }
 

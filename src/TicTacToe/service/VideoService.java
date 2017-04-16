@@ -14,16 +14,17 @@ public class VideoService {
     final static int CAMERA_WIDTH = 960;
     final static int CAMERA_HEIGHT = 540;
 
-    private Mat mat = new Mat();
-    private Mat gray = new Mat();
-    private Mat hsv = new Mat();
-
-    private VideoCapture videoCapture = new VideoCapture();
-
+    private Mat mat;
+    private Mat gray;
+    private Mat hsv;
+    private VideoCapture videoCapture;
     private Point pointOfCircle;
 
     public VideoService() {
-
+        this.mat = new Mat();
+        this.gray = new Mat();
+        this.hsv = new Mat();
+        this.videoCapture = new VideoCapture();
     }
 
     public void detectCircle() {
@@ -67,14 +68,20 @@ public class VideoService {
 
     }
 
+    //TODO
     public void drawCircle() {
 
         if (getPointOfCircle() != null) {
             int circleThickness = 4;
 
-
         }
 
+    }
+
+    public Mat getMat() {
+        videoCapture.read(mat);
+        Core.flip(mat, mat, 1);
+        return mat;
     }
 
     public Point getPointOfCircle() {
@@ -83,12 +90,6 @@ public class VideoService {
 
     public void setPointOfCircle(Point pointOfCircle) {
         this.pointOfCircle = pointOfCircle;
-    }
-
-    public Mat getMat() {
-        videoCapture.read(mat);
-        Core.flip(mat, mat, 1);
-        return mat;
     }
 
     public VideoCapture getVideoCapture() {
