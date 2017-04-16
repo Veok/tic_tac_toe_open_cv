@@ -32,6 +32,7 @@ public class CameraService {
 
 
     public void initializeCamera(Controller controller) {
+
         videoService.getVideoCapture().open(CAMERA_ID);
         videoService.getVideoCapture().set(VideoService.CAMERA_WIDTH_ID, VideoService.CAMERA_WIDTH);
         videoService.getVideoCapture().set(VideoService.CAMERA_HEIGHT_ID, VideoService.CAMERA_HEIGHT);
