@@ -48,42 +48,47 @@ public class VideoService {
         }
     }
 
-    public void drawGameBoard() {
+    public void paintGameBoard() {
 
         Scalar scalar = new Scalar(54, 69, 79);
-        int thickness = 11;
+        int lineThickness = 11;
 
         Imgproc.line(mat, new Point(CAMERA_WIDTH / 3, 0),
-                new Point(CAMERA_WIDTH / 3, CAMERA_HEIGHT), scalar, thickness);
+                new Point(CAMERA_WIDTH / 3, CAMERA_HEIGHT), scalar, lineThickness);
 
         Imgproc.line(mat, new Point(CAMERA_WIDTH / 3 * 2, 0),
-                new Point(CAMERA_WIDTH / 3 * 2, CAMERA_HEIGHT), scalar, thickness);
+                new Point(CAMERA_WIDTH / 3 * 2, CAMERA_HEIGHT), scalar, lineThickness);
 
         Imgproc.line(mat, new Point(0, CAMERA_HEIGHT / 3),
-                new Point(CAMERA_WIDTH, CAMERA_HEIGHT / 3), scalar, thickness);
+                new Point(CAMERA_WIDTH, CAMERA_HEIGHT / 3), scalar, lineThickness);
 
         Imgproc.line(mat, new Point(0, CAMERA_HEIGHT / 3 * 2),
-                new Point(CAMERA_WIDTH, CAMERA_HEIGHT / 3 * 2), scalar, thickness);
+                new Point(CAMERA_WIDTH, CAMERA_HEIGHT / 3 * 2), scalar, lineThickness);
 
     }
 
-    public void drawCircle() {
+    public void paintNought() {
 
         if (getPointOfCircle() != null) {
 
-            int circleThickness = 4;
+            int noughtThickness = 4;
             double x = getPointOfCircle().x;
             double y = getPointOfCircle().y;
 
             for (Cell s : cellService.getListOfCells()) {
                 if (s.isPainted()) {
-                    Imgproc.circle(mat, s.getCenterPoint(), 20, new Scalar(222, 1, 34), circleThickness);
+                    Imgproc.circle(mat, s.getCenterPoint(), 20, new Scalar(222, 1, 34), noughtThickness);
                 }
                 if (x > s.getMinX() && x < s.getMaxX() && y > s.getMinY() && y < s.getMaxY()) {
                     s.setPainted();
                 }
             }
         }
+    }
+
+    public void drawCross() {
+        //Imgproc.line(mat,new Point(s.getCenterPoint().x-40,s.getCenterPoint().y+45),new Point(s.getCenterPoint().x+40,s.getCenterPoint().y-45), new Scalar(231,31,3),3);
+        //Imgproc.line(mat,new Point(s.getCenterPoint().x-40,s.getCenterPoint().y-45),new Point(s.getCenterPoint().x+40,s.getCenterPoint().y+45), new Scalar(231,31,3),3);
     }
 
     public Mat getMat() {
