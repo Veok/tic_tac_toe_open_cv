@@ -7,16 +7,19 @@ import org.opencv.core.Point;
  */
 public class Cell {
 
+    private int id;
     private boolean isPainted;
     private Point centerPoint;
     private double minX;
     private double maxX;
     private double minY;
     private double maxY;
+    private Mark mark;
 
 
-    public Cell(Point centerPoint, double minX, double maxX, double minY, double maxY) {
+    public Cell(Point centerPoint, double minX, double maxX, double minY, double maxY, int id) {
 
+        this.id = id;
         this.centerPoint = centerPoint;
         this.minX = minX;
         this.maxX = maxX;
@@ -35,6 +38,14 @@ public class Cell {
         isPainted = true;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public double getMinX() {
         return minX;
     }
@@ -49,6 +60,14 @@ public class Cell {
 
     public double getMaxY() {
         return maxY;
+    }
+
+    public Mark getMark() {
+        return mark;
+    }
+
+    public void setMark(Mark mark) {
+        this.mark = mark;
     }
 
     public Point getCenterPoint() {

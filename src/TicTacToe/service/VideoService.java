@@ -1,6 +1,7 @@
 package TicTacToe.service;
 
 import TicTacToe.model.Cell;
+import TicTacToe.model.Mark;
 import org.opencv.core.*;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.videoio.VideoCapture;
@@ -38,7 +39,7 @@ public class VideoService {
         Imgproc.cvtColor(mat, hsv, Imgproc.COLOR_RGB2HSV);
         Imgproc.GaussianBlur(gray, gray, new Size(9, 9), 2, 2);
 
-        Core.inRange(hsv, new Scalar(252, 179, 82), new Scalar(227, 141, 31), circles);
+        Core.inRange(hsv, new Scalar(0,100,100), new Scalar(10,255,255), circles);
         Imgproc.HoughCircles(gray, circles, Imgproc.CV_HOUGH_GRADIENT, 2, gray.rows() / 8, 90, 100, 20, 60);
 
         for (int i = 0; i < circles.cols(); i++) {
@@ -48,42 +49,54 @@ public class VideoService {
         }
     }
 
-    public void drawGameBoard() {
+    public void paintGameBoard() {
 
         Scalar scalar = new Scalar(54, 69, 79);
-        int thickness = 11;
+        int lineThickness = 11;
 
         Imgproc.line(mat, new Point(CAMERA_WIDTH / 3, 0),
-                new Point(CAMERA_WIDTH / 3, CAMERA_HEIGHT), scalar, thickness);
+                new Point(CAMERA_WIDTH / 3, CAMERA_HEIGHT), scalar, lineThickness);
 
         Imgproc.line(mat, new Point(CAMERA_WIDTH / 3 * 2, 0),
-                new Point(CAMERA_WIDTH / 3 * 2, CAMERA_HEIGHT), scalar, thickness);
+                new Point(CAMERA_WIDTH / 3 * 2, CAMERA_HEIGHT), scalar, lineThickness);
 
         Imgproc.line(mat, new Point(0, CAMERA_HEIGHT / 3),
-                new Point(CAMERA_WIDTH, CAMERA_HEIGHT / 3), scalar, thickness);
+                new Point(CAMERA_WIDTH, CAMERA_HEIGHT / 3), scalar, lineThickness);
 
         Imgproc.line(mat, new Point(0, CAMERA_HEIGHT / 3 * 2),
-                new Point(CAMERA_WIDTH, CAMERA_HEIGHT / 3 * 2), scalar, thickness);
+                new Point(CAMERA_WIDTH, CAMERA_HEIGHT / 3 * 2), scalar, lineThickness);
 
     }
 
-    public void drawCircle() {
+    public void paintNought() {
 
         if (getPointOfCircle() != null) {
 
-            int circleThickness = 4;
+            int noughtThickness = 4;
             double x = getPointOfCircle().x;
             double y = getPointOfCircle().y;
 
             for (Cell s : cellService.getListOfCells()) {
-                if (s.isPainted()) {
-                    Imgproc.circle(mat, s.getCenterPoint(), 20, new Scalar(222, 1, 34), circleThickness);
+                if (s.isPainted() && s.getMark() != Mark.Cross) {
+                    Imgproc.circle(mat, s.getCenterPoint(), 20, new Scalar(222, 1, 34), noughtThickness);
                 }
-                if (x > s.getMinX() && x < s.getMaxX() && y > s.getMinY() && y < s.getMaxY()) {
+                if (x > s.getMinX() && x < s.getMaxX() && y > s.getMinY() && y < s.getMaxY() && s.getMark() != Mark.Cross) {
                     s.setPainted();
+                    s.setMark(Mark.Nought);
                 }
             }
         }
+    }
+
+    public void paintCross(Cell s) {
+
+        if(s.getMark() != Mark.Nought){
+        Imgproc.line(mat, new Point(s.getCenterPoint().x - 40, s.getCenterPoint().y + 45),
+                new Point(s.getCenterPoint().x + 40, s.getCenterPoint().y - 45), new Scalar(231, 31, 3), 3);
+        Imgproc.line(mat, new Point(s.getCenterPoint().x - 40, s.getCenterPoint().y - 45),
+                new Point(s.getCenterPoint().x + 40, s.getCenterPoint().y + 45), new Scalar(231, 31, 3), 3);
+        s.setPainted();
+        s.setMark(Mark.Cross);}
     }
 
     public Mat getMat() {
@@ -102,5 +115,9 @@ public class VideoService {
 
     public VideoCapture getVideoCapture() {
         return videoCapture;
+    }
+
+    public CellService getCellService() {
+        return cellService;
     }
 }
