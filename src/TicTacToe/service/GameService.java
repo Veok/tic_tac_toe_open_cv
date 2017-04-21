@@ -30,13 +30,8 @@ public class GameService {
         getVideoService().paintGameBoard();
         getVideoService().detectCircle();
         getVideoService().paintNought();
+        getVideoService().paintCross();
 
-        for (Cell s : videoService.getCellService().getListOfCells()) {
-            if (s.isPainted()) {
-                videoService.paintCross(videoService.getCellService().getListOfCells().get(4));
-            }
-
-        }
     }
 
 
