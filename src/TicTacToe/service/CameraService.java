@@ -21,36 +21,34 @@ public class CameraService {
 
     private final int CAMERA_ID = 0;
 
-    private VideoService videoService;
+    private GameService gameService;
     private ScheduledExecutorService timer;
     private boolean isRunning;
 
     public CameraService() {
-        this.videoService = new VideoService();
+        this.gameService = new GameService();
         this.isRunning = true;
     }
 
 
     public void initializeCamera(Controller controller) {
 
-        videoService.getVideoCapture().open(CAMERA_ID);
-        videoService.getVideoCapture().set(VideoService.CAMERA_WIDTH_ID, VideoService.CAMERA_WIDTH);
-        videoService.getVideoCapture().set(VideoService.CAMERA_HEIGHT_ID, VideoService.CAMERA_HEIGHT);
+        gameService.getVideoService().getVideoCapture().open(CAMERA_ID);
+        gameService.getVideoService().getVideoCapture().set(VideoService.CAMERA_WIDTH_ID, VideoService.CAMERA_WIDTH);
+        gameService.getVideoService().getVideoCapture().set(VideoService.CAMERA_HEIGHT_ID, VideoService.CAMERA_HEIGHT);
 
         if (isRunning) {
             Runnable runnable = () -> {
-                Mat image = videoService.getMat();
+                Mat image = gameService.getVideoService().getMat();
                 CameraService.toFxImage(image);
-                videoService.paintGameBoard();
-                videoService.detectCircle();
-                videoService.paintNought();
+               gameService.game();
                 CameraService.onFXThread(controller.getFrame().imageProperty(), toFxImage(image));
             };
             timer = Executors.newSingleThreadScheduledExecutor();
             timer.scheduleAtFixedRate(runnable, 0, 33, TimeUnit.MILLISECONDS);
         } else {
             timer.shutdown();
-            videoService.getVideoCapture().release();
+            gameService.getVideoService().getVideoCapture().release();
         }
     }
 

@@ -8,7 +8,7 @@ public class Player {
     private int score;
     private Mark mark;
 
-    public Player( Mark mark) {
+    public Player(Mark mark) {
         this.mark = mark;
     }
 

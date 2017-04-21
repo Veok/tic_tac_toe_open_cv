@@ -1,6 +1,7 @@
 package TicTacToe.service;
 
 import TicTacToe.model.Cell;
+import TicTacToe.model.Mark;
 import org.opencv.core.*;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.videoio.VideoCapture;
@@ -38,7 +39,7 @@ public class VideoService {
         Imgproc.cvtColor(mat, hsv, Imgproc.COLOR_RGB2HSV);
         Imgproc.GaussianBlur(gray, gray, new Size(9, 9), 2, 2);
 
-        Core.inRange(hsv, new Scalar(252, 179, 82), new Scalar(227, 141, 31), circles);
+        Core.inRange(hsv, new Scalar(0,100,100), new Scalar(10,255,255), circles);
         Imgproc.HoughCircles(gray, circles, Imgproc.CV_HOUGH_GRADIENT, 2, gray.rows() / 8, 90, 100, 20, 60);
 
         for (int i = 0; i < circles.cols(); i++) {
@@ -76,19 +77,26 @@ public class VideoService {
             double y = getPointOfCircle().y;
 
             for (Cell s : cellService.getListOfCells()) {
-                if (s.isPainted()) {
+                if (s.isPainted() && s.getMark() != Mark.Cross) {
                     Imgproc.circle(mat, s.getCenterPoint(), 20, new Scalar(222, 1, 34), noughtThickness);
                 }
-                if (x > s.getMinX() && x < s.getMaxX() && y > s.getMinY() && y < s.getMaxY()) {
+                if (x > s.getMinX() && x < s.getMaxX() && y > s.getMinY() && y < s.getMaxY() && s.getMark() != Mark.Cross) {
                     s.setPainted();
+                    s.setMark(Mark.Nought);
                 }
             }
         }
     }
 
-    public void drawCross() {
-        //Imgproc.line(mat,new Point(s.getCenterPoint().x-40,s.getCenterPoint().y+45),new Point(s.getCenterPoint().x+40,s.getCenterPoint().y-45), new Scalar(231,31,3),3);
-        //Imgproc.line(mat,new Point(s.getCenterPoint().x-40,s.getCenterPoint().y-45),new Point(s.getCenterPoint().x+40,s.getCenterPoint().y+45), new Scalar(231,31,3),3);
+    public void paintCross(Cell s) {
+
+        if(s.getMark() != Mark.Nought){
+        Imgproc.line(mat, new Point(s.getCenterPoint().x - 40, s.getCenterPoint().y + 45),
+                new Point(s.getCenterPoint().x + 40, s.getCenterPoint().y - 45), new Scalar(231, 31, 3), 3);
+        Imgproc.line(mat, new Point(s.getCenterPoint().x - 40, s.getCenterPoint().y - 45),
+                new Point(s.getCenterPoint().x + 40, s.getCenterPoint().y + 45), new Scalar(231, 31, 3), 3);
+        s.setPainted();
+        s.setMark(Mark.Cross);}
     }
 
     public Mat getMat() {
@@ -107,5 +115,9 @@ public class VideoService {
 
     public VideoCapture getVideoCapture() {
         return videoCapture;
+    }
+
+    public CellService getCellService() {
+        return cellService;
     }
 }

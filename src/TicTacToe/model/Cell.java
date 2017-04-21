@@ -14,6 +14,7 @@ public class Cell {
     private double maxX;
     private double minY;
     private double maxY;
+    private Mark mark;
 
 
     public Cell(Point centerPoint, double minX, double maxX, double minY, double maxY, int id) {
@@ -59,6 +60,14 @@ public class Cell {
 
     public double getMaxY() {
         return maxY;
+    }
+
+    public Mark getMark() {
+        return mark;
+    }
+
+    public void setMark(Mark mark) {
+        this.mark = mark;
     }
 
     public Point getCenterPoint() {
