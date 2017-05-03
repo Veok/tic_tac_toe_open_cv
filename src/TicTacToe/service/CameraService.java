@@ -41,7 +41,7 @@ public class CameraService {
             Runnable runnable = () -> {
                 Mat image = gameService.getVideoService().getMat();
                 CameraService.toFxImage(image);
-               gameService.game();
+                gameService.startGame();
                 CameraService.onFXThread(controller.getFrame().imageProperty(), toFxImage(image));
             };
             timer = Executors.newSingleThreadScheduledExecutor();

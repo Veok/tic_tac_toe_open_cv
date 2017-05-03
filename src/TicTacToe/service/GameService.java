@@ -1,18 +1,13 @@
 package TicTacToe.service;
 
-import TicTacToe.model.Cell;
 import TicTacToe.model.Mark;
 import TicTacToe.model.Player;
-import org.opencv.core.Scalar;
-import org.opencv.imgproc.Imgproc;
 
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author Lelental on 17.04.2017.
  */
-public class GameService {
+class GameService {
 
     private Player human;
     private Player cpu;
@@ -26,12 +21,13 @@ public class GameService {
     }
 
 
-    public void game() {
+    public void startGame() {
         getVideoService().paintGameBoard();
         getVideoService().detectCircle();
         getVideoService().paintNought();
         getVideoService().paintCross();
-
+        getVideoService().paintLine();
+        System.out.println(AIService.turn);
     }
 
 

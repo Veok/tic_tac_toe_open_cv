@@ -8,13 +8,13 @@ import org.opencv.core.Point;
 public class Cell {
 
     private int id;
-    private boolean isPainted;
-    private Point centerPoint;
     private double minX;
     private double maxX;
     private double minY;
     private double maxY;
+    private boolean isPainted;
     private Mark mark;
+    private Point centerPoint;
 
 
     public Cell(Point centerPoint, double minX, double maxX, double minY, double maxY, int id) {

@@ -52,8 +52,8 @@ public class VideoService {
 
     public void paintGameBoard() {
 
-        Scalar boardColor = new Scalar(54, 69, 79);
         int lineThickness = 11;
+        Scalar boardColor = new Scalar(54, 69, 79);
 
         Imgproc.line(mat, new Point(CAMERA_WIDTH / 3, 0),
                 new Point(CAMERA_WIDTH / 3, CAMERA_HEIGHT), boardColor, lineThickness);
@@ -78,17 +78,18 @@ public class VideoService {
             double y = getPointOfCircle().y;
             Scalar noughtColor = new Scalar(222, 1, 34);
 
-            for (Cell s : cellService.getListOfCells()) {
-                if (s.isPainted() && s.getMark() != Mark.Cross) {
-                    Imgproc.circle(mat, s.getCenterPoint(), 20,
-                            noughtColor, noughtThickness);
+            for (Cell cell : cellService.getListOfCells()) {
+
+                if (cell.isPainted() && cell.getMark() != Mark.Cross) {
+                    Imgproc.circle(mat, cell.getCenterPoint(), 20, noughtColor, noughtThickness);
                 }
-                if (x > s.getMinX() && x < s.getMaxX() && y > s.getMinY() && y < s.getMaxY()
-                        && s.getMark() != Mark.Cross) {
 
-                    s.setPainted();
-                    s.setMark(Mark.Nought);
+                if (x > cell.getMinX() && x < cell.getMaxX() && y > cell.getMinY() && y < cell.getMaxY()
+                        && cell.getMark() != Mark.Cross && cell.getMark() != Mark.Nought) {
 
+                    cell.setPainted();
+                    cell.setMark(Mark.Nought);
+                    AIService.turn++;
                 }
             }
         }
@@ -100,22 +101,36 @@ public class VideoService {
         Scalar crossColor = new Scalar(231, 31, 3);
 
         //TODO AI LOGIC
-        Cell s = cellService.getListOfCells().get(4);
+        if (AIService.turn > 0) {
+            AIService aiService = new AIService(cellService.getListOfCells());
+            aiService.makeMove();
+            Cell cell2 = cellService.getListOfCells().get(aiService.getCellId());
 
-        if (s.isPainted() && s.getMark() != Mark.Nought) {
-            Imgproc.line(mat, new Point(s.getCenterPoint().x - 40, s.getCenterPoint().y + 45),
-                    new Point(s.getCenterPoint().x + 40, s.getCenterPoint().y - 45),
-                    crossColor, crossThickness);
+            for (Cell cell : cellService.getListOfCells()) {
 
-            Imgproc.line(mat, new Point(s.getCenterPoint().x - 40, s.getCenterPoint().y - 45),
-                    new Point(s.getCenterPoint().x + 40, s.getCenterPoint().y + 45),
-                    crossColor, crossThickness);
+                if (cell.isPainted() && cell.getMark() != Mark.Nought && AIService.turn > 0) {
 
+                    Imgproc.line(mat, new Point(cell.getCenterPoint().x - 40, cell.getCenterPoint().y + 45),
+                            new Point(cell.getCenterPoint().x + 40, cell.getCenterPoint().y - 45),
+                            crossColor, crossThickness);
+
+                    Imgproc.line(mat, new Point(cell.getCenterPoint().x - 40, cell.getCenterPoint().y - 45),
+                            new Point(cell.getCenterPoint().x + 40, cell.getCenterPoint().y + 45),
+                            crossColor, crossThickness);
+
+
+                }
+
+                if (cell.getMark() != Mark.Nought && AIService.turn > 0) {
+                    cell = cell2;
+                    cell.setPainted();
+                    cell.setMark(Mark.Cross);
+                }
+            }
         }
-        if (s.getMark() != Mark.Nought) {
-            s.setPainted();
-            s.setMark(Mark.Cross);
-        }
+    }
+
+    public void paintLine() {
 
     }
 
