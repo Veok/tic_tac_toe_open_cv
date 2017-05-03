@@ -24,7 +24,7 @@ class AIService {
         return cellId;
     }
 
-
+    //TODO create more complicated ai + minmax algorithm
     public void makeMove() {
 
         if (turn % 2 != 0) {

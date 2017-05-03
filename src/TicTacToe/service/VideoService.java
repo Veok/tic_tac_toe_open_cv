@@ -9,6 +9,7 @@ import org.opencv.videoio.VideoCapture;
 /**
  * @author Lelental on 14.04.2017.
  */
+//TODO simplify
 public class VideoService {
 
     final static int CAMERA_WIDTH_ID = 3;
@@ -31,6 +32,7 @@ public class VideoService {
         this.cellService = new CellService();
     }
 
+    //TODO refactor to DetectionService
     public void detectCircle() {
 
         Mat circles = new Mat();
@@ -50,6 +52,7 @@ public class VideoService {
         }
     }
 
+    //TODO refactor to PaintService
     public void paintGameBoard() {
 
         int lineThickness = 11;
@@ -69,6 +72,7 @@ public class VideoService {
 
     }
 
+    //TODO simplify conditions
     public void paintNought() {
 
         if (getPointOfCircle() != null) {
@@ -95,13 +99,14 @@ public class VideoService {
         }
     }
 
+    //TODO simplify conditions
     public void paintCross() {
 
         int crossThickness = 11;
         Scalar crossColor = new Scalar(231, 31, 3);
 
-        //TODO AI LOGIC
         if (AIService.turn > 0) {
+
             AIService aiService = new AIService(cellService.getListOfCells());
             aiService.makeMove();
             Cell cell2 = cellService.getListOfCells().get(aiService.getCellId());
@@ -117,8 +122,6 @@ public class VideoService {
                     Imgproc.line(mat, new Point(cell.getCenterPoint().x - 40, cell.getCenterPoint().y - 45),
                             new Point(cell.getCenterPoint().x + 40, cell.getCenterPoint().y + 45),
                             crossColor, crossThickness);
-
-
                 }
 
                 if (cell.getMark() != Mark.Nought && AIService.turn > 0) {
@@ -130,7 +133,9 @@ public class VideoService {
         }
     }
 
+    //TODO paint line when bot or player wins
     public void paintLine() {
+
 
     }
 

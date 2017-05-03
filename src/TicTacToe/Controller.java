@@ -4,7 +4,7 @@ import TicTacToe.service.CameraService;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 
-
+//TODO add reset button functionality + points view
 public class Controller {
 
     @FXML
