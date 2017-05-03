@@ -1,6 +1,7 @@
 package TicTacToe.service;
 
 import TicTacToe.model.Cell;
+import TicTacToe.model.Mark;
 import org.opencv.core.Point;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class CellService {
     private final int THIRD_LINE = CAMERA_HEIGHT;
 
     private ArrayList<Cell> listOfCells;
+    private Mark[][] cellArray = new Mark[3][3];
 
     public CellService() {
         this.listOfCells = new ArrayList<>();
@@ -33,16 +35,21 @@ public class CellService {
 
     private void setListOfCells() {
 
-        listOfCells.add(new Cell(new Point(160, 90), 0, FIRST_COLUMN, 0, FIRST_LINE, 1));
-        listOfCells.add(new Cell(new Point(480, 90), FIRST_COLUMN, SECOND_COLUMN, 0, FIRST_LINE, 2));
-        listOfCells.add(new Cell(new Point(800, 90), SECOND_COLUMN, THIRD_COLUMN, 0, FIRST_LINE, 3));
-        listOfCells.add(new Cell(new Point(160, 270), 0, FIRST_COLUMN, FIRST_LINE, SECOND_LINE, 4));
-        listOfCells.add(new Cell(new Point(480, 270), FIRST_COLUMN, SECOND_COLUMN, FIRST_LINE, SECOND_LINE, 5));
-        listOfCells.add(new Cell(new Point(800, 270), SECOND_COLUMN, THIRD_COLUMN, FIRST_LINE, SECOND_LINE, 6));
-        listOfCells.add(new Cell(new Point(160, 450), 0, FIRST_COLUMN, SECOND_LINE, THIRD_LINE, 7));
-        listOfCells.add(new Cell(new Point(480, 450), FIRST_COLUMN, SECOND_COLUMN, SECOND_LINE, THIRD_LINE, 8));
-        listOfCells.add(new Cell(new Point(800, 450), SECOND_COLUMN, THIRD_COLUMN, SECOND_LINE, THIRD_LINE, 9));
+        listOfCells.add(new Cell(new Point(160, 90), 0, FIRST_COLUMN, 0, FIRST_LINE, 0,0));
+        listOfCells.add(new Cell(new Point(480, 90), FIRST_COLUMN, SECOND_COLUMN, 0, FIRST_LINE, 0,1));
+        listOfCells.add(new Cell(new Point(800, 90), SECOND_COLUMN, THIRD_COLUMN, 0, FIRST_LINE, 0,2));
+        listOfCells.add(new Cell(new Point(160, 270), 0, FIRST_COLUMN, FIRST_LINE, SECOND_LINE, 1,0));
+        listOfCells.add(new Cell(new Point(480, 270), FIRST_COLUMN, SECOND_COLUMN, FIRST_LINE, SECOND_LINE, 1,1));
+        listOfCells.add(new Cell(new Point(800, 270), SECOND_COLUMN, THIRD_COLUMN, FIRST_LINE, SECOND_LINE, 1,2));
+        listOfCells.add(new Cell(new Point(160, 450), 0, FIRST_COLUMN, SECOND_LINE, THIRD_LINE, 2,0));
+        listOfCells.add(new Cell(new Point(480, 450), FIRST_COLUMN, SECOND_COLUMN, SECOND_LINE, THIRD_LINE, 2,1));
+        listOfCells.add(new Cell(new Point(800, 450), SECOND_COLUMN, THIRD_COLUMN, SECOND_LINE, THIRD_LINE, 2,2));
 
+    }
+
+    public Mark[][] cellArray(int row, int column, Mark mark) {
+        cellArray[row][column] = mark;
+        return cellArray;
     }
 
 
