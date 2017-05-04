@@ -2,19 +2,17 @@ package TicTacToe.service;
 
 import TicTacToe.model.Cell;
 import TicTacToe.model.Mark;
-import org.opencv.core.Mat;
 import org.opencv.core.Point;
-import org.opencv.imgproc.Imgproc;
 
 import java.util.ArrayList;
 
-import static TicTacToe.service.VideoService.CAMERA_HEIGHT;
-import static TicTacToe.service.VideoService.CAMERA_WIDTH;
+import static TicTacToe.service.BoardService.CAMERA_HEIGHT;
+import static TicTacToe.service.BoardService.CAMERA_WIDTH;
 
 /**
  * @author Lelental on 15.04.2017.
  */
-public class CellService {
+public class CellService implements IWantBeNew{
 
     private final int FIRST_COLUMN = CAMERA_WIDTH / 3;
     private final int SECOND_COLUMN = CAMERA_WIDTH / 3 * 2;
@@ -25,7 +23,6 @@ public class CellService {
 
     private ArrayList<Cell> listOfCells;
     private static Mark[][] cellArray = new Mark[3][3];
-    private static boolean gameOver = false;
 
     public CellService() {
         listOfCells = new ArrayList<>();
@@ -37,33 +34,18 @@ public class CellService {
     }
 
 
-    public void cellArray(int row, int column, Mark mark) {
+    public static void cellArray(int row, int column, Mark mark) {
         cellArray[row][column] = mark;
 
     }
 
-    public static boolean winPositions(int row, int column, Mark mark) {
-
-        if (mark != null) {
-            if (cellArray[row][0] == mark && cellArray[row][1] == mark && cellArray[row][2] == mark) {
-                gameOver = true;
-                return true;
-            } else if (cellArray[0][column] == mark && cellArray[1][column] == mark && cellArray[2][column] == mark) {
-                gameOver = true;
-                return true;
-            } else if (row == 1 && column == 1 && cellArray[0][0] == mark && cellArray[row][column] == mark && cellArray[2][2] == mark) {
-                gameOver = true;
-                return true;
-            } else if (row == 1 && column == 1 && cellArray[2][0] == mark && cellArray[row][column] == mark && cellArray[0][2] == mark) {
-                gameOver = true;
-                return true;
-            }
-        }
-        return false;
+    public static Mark[][] getCellArray() {
+        return cellArray;
     }
 
-    public static boolean isGameOver() {
-        return gameOver;
+    @Override
+    public void resetService() {
+        cellArray = new Mark[3][3];
     }
 
     private void setListOfCells() {
@@ -79,4 +61,6 @@ public class CellService {
         listOfCells.add(new Cell(new Point(800, 450), SECOND_COLUMN, THIRD_COLUMN, SECOND_LINE, THIRD_LINE, 2, 2));
 
     }
+
+
 }

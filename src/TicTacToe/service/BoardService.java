@@ -11,8 +11,7 @@ import java.util.List;
 /**
  * @author Lelental on 14.04.2017.
  */
-//TODO simplify
-public class VideoService {
+public class BoardService implements IWantBeNew {
 
     final static int CAMERA_WIDTH_ID = 3;
     final static int CAMERA_HEIGHT_ID = 4;
@@ -25,10 +24,11 @@ public class VideoService {
     private VideoCapture videoCapture;
     private Point pointOfCircle;
     private CellService cellService;
+    private AIService aiService;
     private static Point startPoint;
     private static Point endPoint;
 
-    public VideoService() {
+    public BoardService() {
         this.mat = new Mat();
         this.gray = new Mat();
         this.hsv = new Mat();
@@ -36,7 +36,12 @@ public class VideoService {
         this.cellService = new CellService();
     }
 
-    //TODO refactor to DetectionService
+    @Override
+    public void resetService() {
+        startPoint = null;
+        endPoint = null;
+    }
+
     public void detectCircle() {
 
         Mat circles = new Mat();
@@ -56,7 +61,6 @@ public class VideoService {
         }
     }
 
-    //TODO refactor to PaintService
     public void paintGameBoard() {
 
         int lineThickness = 11;
@@ -76,7 +80,6 @@ public class VideoService {
 
     }
 
-    //TODO simplify conditions
     public void paintNought() {
 
         if (getPointOfCircle() != null) {
@@ -97,14 +100,13 @@ public class VideoService {
 
                     cell.setPainted();
                     cell.setMark(Mark.Nought);
-                    cellService.cellArray(cell.getRow(), cell.getColumn(), cell.getMark());
+                    CellService.cellArray(cell.getRow(), cell.getColumn(), cell.getMark());
                     AIService.turn++;
                 }
             }
         }
     }
 
-    //TODO simplify conditions
     public void paintCross() {
 
         int crossThickness = 11;
@@ -112,7 +114,7 @@ public class VideoService {
 
         if (AIService.turn > 0) {
 
-            AIService aiService = new AIService(cellService.getListOfCells());
+            aiService = new AIService(cellService.getListOfCells());
             aiService.makeMove();
             Cell cell2 = cellService.getListOfCells().get(aiService.getCellId());
 
@@ -133,19 +135,18 @@ public class VideoService {
                     cell = cell2;
                     cell.setPainted();
                     cell.setMark(Mark.Cross);
-                    cellService.cellArray(cell.getRow(), cell.getColumn(), cell.getMark());
+                    CellService.cellArray(cell.getRow(), cell.getColumn(), cell.getMark());
                 }
             }
         }
     }
 
-    //TODO refactor spaghetti
     public void paintLine() {
         List<Cell> list = cellService.getListOfCells();
 
-        if (!CellService.isGameOver()) {
+        if (!GameService.isGameOver()) {
 
-            if (CellService.winPositions(0, 0, list.get(0).getMark())) {
+            if (GameService.winPositions(0, 0, list.get(0).getMark())) {
                 if (list.get(1).getMark() == list.get(0).getMark() && list.get(0).getMark() == list.get(2).getMark()) {
                     startPoint = list.get(0).getCenterPoint();
                     endPoint = list.get(2).getCenterPoint();
@@ -155,28 +156,28 @@ public class VideoService {
                     endPoint = list.get(6).getCenterPoint();
                 }
             }
-            if (CellService.winPositions(0, 1, list.get(1).getMark())) {
+            if (GameService.winPositions(0, 1, list.get(1).getMark())) {
                 startPoint = list.get(1).getCenterPoint();
                 endPoint = list.get(7).getCenterPoint();
 
             }
-            if (CellService.winPositions(0, 2, list.get(2).getMark())) {
+            if (GameService.winPositions(0, 2, list.get(2).getMark())) {
                 startPoint = list.get(2).getCenterPoint();
                 endPoint = list.get(8).getCenterPoint();
             }
-            if (CellService.winPositions(1, 0, list.get(3).getMark())) {
+            if (GameService.winPositions(1, 0, list.get(3).getMark())) {
                 startPoint = list.get(3).getCenterPoint();
                 endPoint = list.get(5).getCenterPoint();
             }
-            if (CellService.winPositions(2, 0, list.get(6).getMark())) {
+            if (GameService.winPositions(2, 0, list.get(6).getMark())) {
                 startPoint = list.get(6).getCenterPoint();
                 endPoint = list.get(9).getCenterPoint();
             }
-            if (CellService.winPositions(1, 1, list.get(6).getMark()) && list.get(6).getMark() == list.get(2).getMark()) {
+            if (GameService.winPositions(1, 1, list.get(6).getMark()) && list.get(6).getMark() == list.get(2).getMark()) {
                 startPoint = list.get(6).getCenterPoint();
                 endPoint = list.get(2).getCenterPoint();
             }
-            if (CellService.winPositions(1, 1, list.get(8).getMark()) && list.get(8).getMark() == list.get(0).getMark()) {
+            if (GameService.winPositions(1, 1, list.get(8).getMark()) && list.get(8).getMark() == list.get(0).getMark()) {
                 startPoint = list.get(8).getCenterPoint();
                 endPoint = list.get(0).getCenterPoint();
 
@@ -190,6 +191,7 @@ public class VideoService {
     private void paintEndGameLine() {
         Imgproc.line(mat, startPoint, endPoint, new Scalar(255, 255, 255), 11);
     }
+
 
     public Mat getMat() {
         videoCapture.read(mat);

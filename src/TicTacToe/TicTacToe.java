@@ -1,8 +1,11 @@
 package TicTacToe;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.opencv.core.Core;
@@ -17,8 +20,17 @@ public class TicTacToe extends Application {
         primaryStage.setScene(new Scene(fxmlLoader.load(), 960, 625));
         primaryStage.setResizable(false);
         primaryStage.show();
+        Controller controller = fxmlLoader.getController();
+
+        Button button = controller.resetButton;
+        button.setOnAction(event -> {
+            controller.getCameraService().turnOff();
+            controller.getCameraService().initializeCamera(controller);
+            controller.getCameraService().resetService();
+            controller.getCameraService().turnOn();
+            controller.getCameraService().initializeCamera(controller);
+        });
         primaryStage.setOnCloseRequest((WindowEvent event) -> {
-            Controller controller = fxmlLoader.getController();
             if (controller.getCameraService().isRunning()) {
                 controller.getCameraService().turnOff();
                 controller.getCameraService().initializeCamera(controller);
