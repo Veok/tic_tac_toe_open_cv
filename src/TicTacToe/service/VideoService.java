@@ -157,7 +157,7 @@ public class VideoService {
             }
             if (CellService.winPositions(0, 1, list.get(1).getMark())) {
                 startPoint = list.get(1).getCenterPoint();
-                endPoint = list.get(67).getCenterPoint();
+                endPoint = list.get(7).getCenterPoint();
 
             }
             if (CellService.winPositions(0, 2, list.get(2).getMark())) {

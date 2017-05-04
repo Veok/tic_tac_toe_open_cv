@@ -23,12 +23,13 @@ class GameService {
 
     public void startGame() {
         getVideoService().paintGameBoard();
-        getVideoService().detectCircle();
+        if (!CellService.isGameOver()) {
+            getVideoService().detectCircle();
+        }
         getVideoService().paintNought();
         getVideoService().paintCross();
         getVideoService().paintLine();
 
-        System.out.println(AIService.turn);
     }
 
 
