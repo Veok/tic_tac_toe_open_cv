@@ -12,7 +12,7 @@ import java.util.concurrent.ThreadLocalRandom;
 class AIService {
 
     private List<Cell> cellList;
-    private int cellId;
+    private static int cellId;
     public static int turn = 0;
 
     public AIService(List<Cell> cellList) {
@@ -24,9 +24,7 @@ class AIService {
         return cellId;
     }
 
-    //TODO create more complicated ai + minmax algorithm
     public void makeMove() {
-
         if (turn % 2 != 0) {
             do {
                 if (turn >= 9) {
@@ -38,7 +36,10 @@ class AIService {
             turn++;
 
         }
+      
     }
+
+
 }
 
 

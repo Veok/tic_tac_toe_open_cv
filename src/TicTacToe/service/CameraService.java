@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author Lelental on 06.04.2017.
  */
-public class CameraService {
+public class CameraService implements IWantBeNew {
 
     private final int CAMERA_ID = 0;
 
@@ -30,16 +30,20 @@ public class CameraService {
         this.isRunning = true;
     }
 
+    @Override
+    public void resetService() {
+        gameService.resetService();
+    }
 
     public void initializeCamera(Controller controller) {
 
-        gameService.getVideoService().getVideoCapture().open(CAMERA_ID);
-        gameService.getVideoService().getVideoCapture().set(VideoService.CAMERA_WIDTH_ID, VideoService.CAMERA_WIDTH);
-        gameService.getVideoService().getVideoCapture().set(VideoService.CAMERA_HEIGHT_ID, VideoService.CAMERA_HEIGHT);
+        gameService.getBoardService().getVideoCapture().open(CAMERA_ID);
+        gameService.getBoardService().getVideoCapture().set(BoardService.CAMERA_WIDTH_ID, BoardService.CAMERA_WIDTH);
+        gameService.getBoardService().getVideoCapture().set(BoardService.CAMERA_HEIGHT_ID, BoardService.CAMERA_HEIGHT);
 
         if (isRunning) {
             Runnable runnable = () -> {
-                Mat image = gameService.getVideoService().getMat();
+                Mat image = gameService.getBoardService().getMat();
                 CameraService.toFxImage(image);
                 gameService.startGame();
                 CameraService.onFXThread(controller.getFrame().imageProperty(), toFxImage(image));
@@ -48,7 +52,7 @@ public class CameraService {
             timer.scheduleAtFixedRate(runnable, 0, 33, TimeUnit.MILLISECONDS);
         } else {
             timer.shutdown();
-            gameService.getVideoService().getVideoCapture().release();
+            gameService.getBoardService().getVideoCapture().release();
         }
     }
 
@@ -58,6 +62,10 @@ public class CameraService {
 
     public void turnOff() {
         isRunning = false;
+    }
+
+    public void turnOn() {
+        isRunning = true;
     }
 
     private static BufferedImage matToBufferedImage(Mat original) {

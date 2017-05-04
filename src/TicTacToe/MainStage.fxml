@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-
 
 <GridPane alignment="center" hgap="10" maxHeight="625.0" maxWidth="960.0" minHeight="625.0" minWidth="960.0"
           prefHeight="625.0" prefWidth="960.0" vgap="10" xmlns="http://javafx.com/javafx/8"
@@ -27,20 +25,8 @@
         </AnchorPane>
         <AnchorPane maxHeight="85.0" maxWidth="960.0" minHeight="85.0" minWidth="960.0" prefHeight="85.0"
                     prefWidth="960.0">
-            <Button alignment="CENTER" layoutX="382.0" layoutY="4.0" mnemonicParsing="false"
-                    prefHeight="77.0" prefWidth="196.0" text="Start"/>
-            <Text layoutX="14.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="X:"
-                  wrappingWidth="39.6796875">
-                <font>
-                    <Font size="41.0"/>
-                </font>
-            </Text>
-            <Text layoutX="592.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="O:"
-                  wrappingWidth="68.6796875">
-                <font>
-                    <Font size="41.0"/>
-                </font>
-            </Text>
+            <Button fx:id="resetButton" alignment="CENTER" layoutX="4.0" layoutY="4.0" mnemonicParsing="false"
+                    prefHeight="77.0" prefWidth="952.0" text="START NEW GAME"/>
         </AnchorPane>
     </SplitPane>
 </GridPane>
