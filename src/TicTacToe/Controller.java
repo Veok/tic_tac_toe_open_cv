@@ -2,11 +2,13 @@ package TicTacToe;
 
 import TicTacToe.service.CameraService;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 
 //TODO add reset button functionality + points view
 public class Controller {
 
+    public Button resetButton;
     @FXML
     private ImageView frame;
 
@@ -24,5 +26,7 @@ public class Controller {
         return frame;
     }
 
-
+    public Button getResetButton() {
+        return resetButton;
+    }
 }

@@ -12,7 +12,7 @@ import java.util.concurrent.ThreadLocalRandom;
 class AIService {
 
     private List<Cell> cellList;
-    private int cellId;
+    private static int cellId;
     public static int turn = 0;
 
     public AIService(List<Cell> cellList) {
@@ -38,6 +38,7 @@ class AIService {
             turn++;
 
         }
+      
     }
 }
 

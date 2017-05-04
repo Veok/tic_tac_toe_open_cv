@@ -27,6 +27,7 @@ class GameService {
         getVideoService().paintNought();
         getVideoService().paintCross();
         getVideoService().paintLine();
+
         System.out.println(AIService.turn);
     }
 

@@ -6,6 +6,8 @@ import org.opencv.core.*;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.videoio.VideoCapture;
 
+import java.util.List;
+
 /**
  * @author Lelental on 14.04.2017.
  */
@@ -23,6 +25,8 @@ public class VideoService {
     private VideoCapture videoCapture;
     private Point pointOfCircle;
     private CellService cellService;
+    private static Point startPoint;
+    private static Point endPoint;
 
     public VideoService() {
         this.mat = new Mat();
@@ -93,6 +97,7 @@ public class VideoService {
 
                     cell.setPainted();
                     cell.setMark(Mark.Nought);
+                    cellService.cellArray(cell.getRow(), cell.getColumn(), cell.getMark());
                     AIService.turn++;
                 }
             }
@@ -113,7 +118,7 @@ public class VideoService {
 
             for (Cell cell : cellService.getListOfCells()) {
 
-                if (cell.isPainted() && cell.getMark() != Mark.Nought && AIService.turn > 0) {
+                if (cell.isPainted() && cell.getMark() != Mark.Nought) {
 
                     Imgproc.line(mat, new Point(cell.getCenterPoint().x - 40, cell.getCenterPoint().y + 45),
                             new Point(cell.getCenterPoint().x + 40, cell.getCenterPoint().y - 45),
@@ -124,19 +129,66 @@ public class VideoService {
                             crossColor, crossThickness);
                 }
 
-                if (cell.getMark() != Mark.Nought && AIService.turn > 0) {
+                if (cell.getMark() != Mark.Nought) {
                     cell = cell2;
                     cell.setPainted();
                     cell.setMark(Mark.Cross);
+                    cellService.cellArray(cell.getRow(), cell.getColumn(), cell.getMark());
                 }
             }
         }
     }
 
-    //TODO paint line when bot or player wins
+    //TODO refactor spaghetti
     public void paintLine() {
+        List<Cell> list = cellService.getListOfCells();
 
+        if (!CellService.isGameOver()) {
 
+            if (CellService.winPositions(0, 0, list.get(0).getMark())) {
+                if (list.get(1).getMark() == list.get(0).getMark() && list.get(0).getMark() == list.get(2).getMark()) {
+                    startPoint = list.get(0).getCenterPoint();
+                    endPoint = list.get(2).getCenterPoint();
+                }
+                if (list.get(0).getMark() == list.get(3).getMark() && list.get(0).getMark() == list.get(6).getMark()) {
+                    startPoint = list.get(0).getCenterPoint();
+                    endPoint = list.get(6).getCenterPoint();
+                }
+            }
+            if (CellService.winPositions(0, 1, list.get(1).getMark())) {
+                startPoint = list.get(1).getCenterPoint();
+                endPoint = list.get(67).getCenterPoint();
+
+            }
+            if (CellService.winPositions(0, 2, list.get(2).getMark())) {
+                startPoint = list.get(2).getCenterPoint();
+                endPoint = list.get(8).getCenterPoint();
+            }
+            if (CellService.winPositions(1, 0, list.get(3).getMark())) {
+                startPoint = list.get(3).getCenterPoint();
+                endPoint = list.get(5).getCenterPoint();
+            }
+            if (CellService.winPositions(2, 0, list.get(6).getMark())) {
+                startPoint = list.get(6).getCenterPoint();
+                endPoint = list.get(9).getCenterPoint();
+            }
+            if (CellService.winPositions(1, 1, list.get(6).getMark()) && list.get(6).getMark() == list.get(2).getMark()) {
+                startPoint = list.get(6).getCenterPoint();
+                endPoint = list.get(2).getCenterPoint();
+            }
+            if (CellService.winPositions(1, 1, list.get(8).getMark()) && list.get(8).getMark() == list.get(0).getMark()) {
+                startPoint = list.get(8).getCenterPoint();
+                endPoint = list.get(0).getCenterPoint();
+
+            }
+        } else {
+            paintEndGameLine();
+        }
+
+    }
+
+    private void paintEndGameLine() {
+        Imgproc.line(mat, startPoint, endPoint, new Scalar(255, 255, 255), 11);
     }
 
     public Mat getMat() {
@@ -160,4 +212,6 @@ public class VideoService {
     public CellService getCellService() {
         return cellService;
     }
+
+
 }
