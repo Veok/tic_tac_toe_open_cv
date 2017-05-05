@@ -19,7 +19,6 @@ public class Cell {
 
 
     public Cell(Point centerPoint, double minX, double maxX, double minY, double maxY, int row, int column) {
-
         this.row = row;
         this.column = column;
         this.centerPoint = centerPoint;
@@ -27,9 +26,6 @@ public class Cell {
         this.maxX = maxX;
         this.minY = minY;
         this.maxY = maxY;
-    }
-
-    public Cell() {
     }
 
     public boolean isPainted() {
