@@ -1,7 +1,7 @@
-package TicTacToe.service;
+package TicTacToe.controller;
 
 
-import TicTacToe.Controller;
+import TicTacToe.service.video.VideoService;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.embed.swing.SwingFXUtils;
@@ -17,55 +17,42 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author Lelental on 06.04.2017.
  */
-public class CameraService implements IWantBeNew {
+public class CameraController {
 
     private final int CAMERA_ID = 0;
 
-    private GameService gameService;
+    private GameController gameController;
     private ScheduledExecutorService timer;
     private boolean isRunning;
 
-    public CameraService() {
-        this.gameService = new GameService();
+    CameraController() {
+        this.gameController = new GameController();
         this.isRunning = true;
     }
 
-    @Override
-    public void resetService() {
-        gameService.resetService();
-    }
+    public void initializeCamera(ViewController viewController) {
 
-    public void initializeCamera(Controller controller) {
+        gameController.getGameService().getVideoService().getVideoCapture().open(CAMERA_ID);
 
-        gameService.getBoardService().getVideoCapture().open(CAMERA_ID);
-        gameService.getBoardService().getVideoCapture().set(BoardService.CAMERA_WIDTH_ID, BoardService.CAMERA_WIDTH);
-        gameService.getBoardService().getVideoCapture().set(BoardService.CAMERA_HEIGHT_ID, BoardService.CAMERA_HEIGHT);
+        gameController.getGameService().getVideoService().getVideoCapture()
+                .set(VideoService.CAMERA_WIDTH_ID, VideoService.CAMERA_WIDTH);
+
+        gameController.getGameService().getVideoService().getVideoCapture()
+                .set(VideoService.CAMERA_HEIGHT_ID, VideoService.CAMERA_HEIGHT);
 
         if (isRunning) {
             Runnable runnable = () -> {
-                Mat image = gameService.getBoardService().getMat();
-                CameraService.toFxImage(image);
-                gameService.startGame();
-                CameraService.onFXThread(controller.getFrame().imageProperty(), toFxImage(image));
+                Mat image = gameController.getGameService().getVideoService().getFrame();
+                CameraController.toFxImage(image);
+                gameController.getGameService().startGame();
+                CameraController.onFXThread(viewController.getFrame().imageProperty(), toFxImage(image));
             };
             timer = Executors.newSingleThreadScheduledExecutor();
             timer.scheduleAtFixedRate(runnable, 0, 33, TimeUnit.MILLISECONDS);
         } else {
             timer.shutdown();
-            gameService.getBoardService().getVideoCapture().release();
+            gameController.getGameService().getVideoService().getVideoCapture().release();
         }
-    }
-
-    public boolean isRunning() {
-        return isRunning;
-    }
-
-    public void turnOff() {
-        isRunning = false;
-    }
-
-    public void turnOn() {
-        isRunning = true;
     }
 
     private static BufferedImage matToBufferedImage(Mat original) {
@@ -85,6 +72,7 @@ public class CameraService implements IWantBeNew {
         return image;
     }
 
+
     private static Image toFxImage(Mat mat) {
         return SwingFXUtils.toFXImage(matToBufferedImage(mat), null);
     }
@@ -93,5 +81,16 @@ public class CameraService implements IWantBeNew {
         Platform.runLater(() -> property.set(value));
     }
 
+    public boolean isRunning() {
+        return isRunning;
+    }
+
+    public void turnOff() {
+        isRunning = false;
+    }
+
+    public void turnOn() {
+        isRunning = true;
+    }
 
 }

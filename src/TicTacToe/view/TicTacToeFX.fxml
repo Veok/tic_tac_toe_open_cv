@@ -6,7 +6,7 @@
 
 <GridPane alignment="center" hgap="10" maxHeight="625.0" maxWidth="960.0" minHeight="625.0" minWidth="960.0"
           prefHeight="625.0" prefWidth="960.0" vgap="10" xmlns="http://javafx.com/javafx/8"
-          xmlns:fx="http://javafx.com/fxml/1" fx:controller="TicTacToe.Controller">
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="TicTacToe.controller.ViewController">
     <columnConstraints>
         <ColumnConstraints/>
         <ColumnConstraints/>

@@ -1,4 +1,4 @@
-package TicTacToe.service;
+package TicTacToe.service.position;
 
 import TicTacToe.model.Cell;
 import TicTacToe.model.Mark;
@@ -6,13 +6,13 @@ import org.opencv.core.Point;
 
 import java.util.ArrayList;
 
-import static TicTacToe.service.BoardService.CAMERA_HEIGHT;
-import static TicTacToe.service.BoardService.CAMERA_WIDTH;
+import static TicTacToe.service.video.VideoService.CAMERA_HEIGHT;
+import static TicTacToe.service.video.VideoService.CAMERA_WIDTH;
 
 /**
- * @author Lelental on 15.04.2017.
+ * @author Lelental on 05.05.2017.
  */
-public class CellService implements IWantBeNew{
+public class CellPosition {
 
     private final int FIRST_COLUMN = CAMERA_WIDTH / 3;
     private final int SECOND_COLUMN = CAMERA_WIDTH / 3 * 2;
@@ -24,7 +24,7 @@ public class CellService implements IWantBeNew{
     private ArrayList<Cell> listOfCells;
     private static Mark[][] cellArray = new Mark[3][3];
 
-    public CellService() {
+    CellPosition() {
         listOfCells = new ArrayList<>();
         setListOfCells();
     }
@@ -43,10 +43,6 @@ public class CellService implements IWantBeNew{
         return cellArray;
     }
 
-    @Override
-    public void resetService() {
-        cellArray = new Mark[3][3];
-    }
 
     private void setListOfCells() {
 
@@ -61,6 +57,4 @@ public class CellService implements IWantBeNew{
         listOfCells.add(new Cell(new Point(800, 450), SECOND_COLUMN, THIRD_COLUMN, SECOND_LINE, THIRD_LINE, 2, 2));
 
     }
-
-
 }
