@@ -39,7 +39,7 @@ public class CellPosition {
 
     }
 
-    public static Mark[][] getCellArray() {
+    static Mark[][] getCellArray() {
         return cellArray;
     }
 
@@ -56,5 +56,10 @@ public class CellPosition {
         listOfCells.add(new Cell(new Point(480, 450), FIRST_COLUMN, SECOND_COLUMN, SECOND_LINE, THIRD_LINE, 2, 1));
         listOfCells.add(new Cell(new Point(800, 450), SECOND_COLUMN, THIRD_COLUMN, SECOND_LINE, THIRD_LINE, 2, 2));
 
+    }
+
+    void resetCellArray(){
+        cellArray = null;
+        cellArray = new Mark[3][3];
     }
 }

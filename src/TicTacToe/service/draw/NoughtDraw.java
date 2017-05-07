@@ -43,7 +43,7 @@ public class NoughtDraw implements ICanBeDraw {
                 if (x > cell.getMinX() && x < cell.getMaxX() && y > cell.getMinY() && y < cell.getMaxY()
                         && cell.getMark() != Mark.Cross && cell.getMark() != Mark.Nought) {
 
-                    cell.setPainted();
+                    cell.setPainted(true);
                     cell.setMark(Mark.Nought);
                     CellPosition.cellArray(cell.getRow(), cell.getColumn(), cell.getMark());
                     AIService.turn++;
@@ -51,6 +51,8 @@ public class NoughtDraw implements ICanBeDraw {
             }
         }
     }
+
+
 
     public void setPointOfCircle(Point pointOfCircle) {
         this.pointOfCircle = pointOfCircle;

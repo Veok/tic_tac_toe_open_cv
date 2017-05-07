@@ -6,4 +6,5 @@ package TicTacToe.service.draw;
 public interface ICanBeDraw {
 
     void draw();
+
 }

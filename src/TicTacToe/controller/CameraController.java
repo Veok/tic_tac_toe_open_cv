@@ -20,6 +20,8 @@ import java.util.concurrent.TimeUnit;
 public class CameraController {
 
     private final int CAMERA_ID = 0;
+    private final static int CAMERA_WIDTH_ID = 3;
+    private static int CAMERA_HEIGHT_ID = 4;
 
     private GameController gameController;
     private ScheduledExecutorService timer;
@@ -32,26 +34,26 @@ public class CameraController {
 
     public void initializeCamera(ViewController viewController) {
 
-        gameController.getGameService().getVideoService().getVideoCapture().open(CAMERA_ID);
+        gameController.getVideoService().getVideoCapture().open(CAMERA_ID);
 
-        gameController.getGameService().getVideoService().getVideoCapture()
-                .set(VideoService.CAMERA_WIDTH_ID, VideoService.CAMERA_WIDTH);
+        gameController.getVideoService().getVideoCapture()
+                .set(CAMERA_WIDTH_ID, VideoService.CAMERA_WIDTH);
 
-        gameController.getGameService().getVideoService().getVideoCapture()
-                .set(VideoService.CAMERA_HEIGHT_ID, VideoService.CAMERA_HEIGHT);
+        gameController.getVideoService().getVideoCapture()
+                .set(CAMERA_HEIGHT_ID, VideoService.CAMERA_HEIGHT);
 
         if (isRunning) {
             Runnable runnable = () -> {
-                Mat image = gameController.getGameService().getVideoService().getFrame();
+                Mat image = gameController.getVideoService().getFrame();
                 CameraController.toFxImage(image);
-                gameController.getGameService().startGame();
+                gameController.startGame();
                 CameraController.onFXThread(viewController.getFrame().imageProperty(), toFxImage(image));
             };
             timer = Executors.newSingleThreadScheduledExecutor();
             timer.scheduleAtFixedRate(runnable, 0, 33, TimeUnit.MILLISECONDS);
         } else {
             timer.shutdown();
-            gameController.getGameService().getVideoService().getVideoCapture().release();
+            gameController.getVideoService().getVideoCapture().release();
         }
     }
 
@@ -93,4 +95,7 @@ public class CameraController {
         isRunning = true;
     }
 
+    public GameController getGameController() {
+        return gameController;
+    }
 }

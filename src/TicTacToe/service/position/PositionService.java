@@ -14,4 +14,7 @@ public class PositionService {
         return cellPosition;
     }
 
+    public void restartPosition(){
+        cellPosition.resetCellArray();
+    }
 }

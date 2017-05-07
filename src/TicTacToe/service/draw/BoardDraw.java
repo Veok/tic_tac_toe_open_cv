@@ -37,4 +37,6 @@ public class BoardDraw implements ICanBeDraw {
         Imgproc.line(mat, new Point(0, CAMERA_HEIGHT / 3 * 2),
                 new Point(CAMERA_WIDTH, CAMERA_HEIGHT / 3 * 2), boardColor, lineThickness);
     }
+
+
 }

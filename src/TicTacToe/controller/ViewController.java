@@ -16,6 +16,12 @@ public class ViewController {
     @FXML
     public Button resetButton;
 
+
+    public Button reset(){
+        resetButton.setOnAction(event -> cameraController.getGameController().restartGame() );
+        return resetButton;
+    }
+
     public ViewController() {
         cameraController.initializeCamera(this);
     }

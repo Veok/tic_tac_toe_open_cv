@@ -9,8 +9,6 @@ import org.opencv.videoio.VideoCapture;
  */
 public class VideoService {
 
-    public final static int CAMERA_WIDTH_ID = 3;
-    public static int CAMERA_HEIGHT_ID = 4;
     public final static int CAMERA_WIDTH = 960;
     public final static int CAMERA_HEIGHT = 540;
 

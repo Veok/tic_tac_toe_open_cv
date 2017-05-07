@@ -9,6 +9,7 @@ import javafx.stage.WindowEvent;
 import org.opencv.core.Core;
 import TicTacToe.controller.ViewController;
 
+
 public class TicTacToe extends Application {
 
     @Override
@@ -19,15 +20,19 @@ public class TicTacToe extends Application {
         primaryStage.setScene(new Scene(fxmlLoader.load(), 960, 625));
         primaryStage.setResizable(false);
         primaryStage.show();
+
         ViewController viewController = fxmlLoader.getController();
 
-//        Button button = viewController.resetButton;
-//        button.setOnAction(event -> {
-//            viewController.getCameraController().turnOff();
-//            viewController.getCameraController().initializeCamera(viewController);
-//            viewController.getCameraController().turnOn();
-//            viewController.getCameraController().initializeCamera(viewController);
-//        });
+        Button button = viewController.resetButton;
+        button.setOnAction(event -> {
+                    viewController.reset();
+                    viewController.getCameraController().turnOff();
+                    viewController.getCameraController().initializeCamera(viewController);
+                    viewController.getCameraController().turnOn();
+                    viewController.getCameraController().initializeCamera(viewController);
+                }
+        );
+
         primaryStage.setOnCloseRequest((WindowEvent event) -> {
             if (viewController.getCameraController().isRunning()) {
                 viewController.getCameraController().turnOff();

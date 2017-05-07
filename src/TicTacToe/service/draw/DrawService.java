@@ -39,4 +39,8 @@ public class DrawService {
     public WinLineDraw getWinLineDraw() {
         return winLineDraw;
     }
+
+    public void erase(){
+        winLineDraw.erase();
+    }
 }

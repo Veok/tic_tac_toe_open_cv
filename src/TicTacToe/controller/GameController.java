@@ -6,14 +6,8 @@ import TicTacToe.service.GameService;
 /**
  * @author Lelental on 05.05.2017.
  */
-class GameController {
+class GameController extends GameService {
 
-    private GameService gameService = new GameService();
+    GameController() {}
 
-    GameController() {
-    }
-
-    GameService getGameService() {
-        return gameService;
-    }
 }

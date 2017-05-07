@@ -52,13 +52,14 @@ public class CrossDraw implements ICanBeDraw {
 
                 if (cell.getMark() != Mark.Nought) {
                     cell = cell2;
-                    cell.setPainted();
+                    cell.setPainted(true);
                     cell.setMark(Mark.Cross);
                     CellPosition.cellArray(cell.getRow(), cell.getColumn(), cell.getMark());
                 }
             }
         }
     }
+
 
     public void setAiService(AIService aiService) {
         this.aiService = aiService;
