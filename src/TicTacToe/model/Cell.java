@@ -26,14 +26,15 @@ public class Cell {
         this.maxX = maxX;
         this.minY = minY;
         this.maxY = maxY;
+
     }
 
     public boolean isPainted() {
         return isPainted;
     }
 
-    public void setPainted() {
-        isPainted = true;
+    public void setPainted(boolean painted) {
+        isPainted = painted;
     }
 
     public int getRow() {
