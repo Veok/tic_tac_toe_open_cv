@@ -17,7 +17,7 @@ public class ViewController {
     public Button resetButton;
 
     public void reset() {
-        resetButton.setOnAction(event -> cameraController.getGameController().restartParameters());
+        resetButton.setOnAction(event -> cameraController.getGame().restartGame());
     }
 
     public ViewController() {

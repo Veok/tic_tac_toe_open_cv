@@ -1,63 +1,62 @@
 package TicTacToe.service;
 
 import TicTacToe.service.ai.AIService;
+import TicTacToe.service.coordinates.CoordinateService;
 import TicTacToe.service.detection.DetectionService;
-import TicTacToe.service.draw.DrawService;
-import TicTacToe.service.position.PositionService;
+import TicTacToe.service.paint.PaintService;
 import TicTacToe.service.video.VideoService;
 
 /**
  * @author Lelental on 17.04.2017.
  */
-public class GameService implements IRestartService{
+public class GameService {
 
     private static boolean gameOver = false;
-    private DrawService drawService;
+    private PaintService paintService;
     private AIService aiService;
     private DetectionService detectionService;
-    private PositionService positionService;
+    private CoordinateService coordinateService;
     private VideoService videoService;
 
     protected GameService() {
 
         this.videoService = new VideoService();
-        this.positionService = new PositionService();
-        this.aiService = new AIService(positionService.getCellPosition().getListOfCells());
+        this.coordinateService = new CoordinateService();
+        this.aiService = new AIService(coordinateService.getCellCoordinate().getCells());
         this.detectionService = new DetectionService(videoService.getMat());
-        this.drawService = new DrawService(videoService.getMat(), positionService.getCellPosition().getListOfCells());
+        this.paintService = new PaintService(videoService.getMat(),
+                coordinateService.getCellCoordinate().getCells());
 
     }
 
 
     public void startGame() {
 
-        drawService.getBoardDraw().draw();
-        drawService.getNoughtDraw().setPointOfCircle(detectionService.getNoughtDetection().getDetectedPoint());
-        drawService.getCrossDraw().setAiService(aiService);
+        paintService.getBoard().draw();
+        paintService.getNought().setPointOfCircle(detectionService.getObjectDetection().getDetectedPoint());
+        paintService.getCross().setAiService(aiService);
 
         if (!gameOver) {
-            detectionService.getNoughtDetection().detect();
+            detectionService.getObjectDetection().detect();
         }
 
-        drawService.getNoughtDraw().draw();
-        drawService.getCrossDraw().draw();
-        drawService.getWinLineDraw().draw();
-        System.out.println(AIService.turn);
-
+        paintService.getNought().draw();
+        paintService.getCross().draw();
+        paintService.getWinLine().draw();
 
     }
 
-    public void restartParameters() {
+    public void restartGame() {
 
         detectionService.restartParameters();
-        drawService.restartParameters();
-        positionService.restartParameters();
+        paintService.restartParameters();
+        coordinateService.restartParameters();
         aiService.restartParameters();
         gameOver = false;
 
     }
 
-    public VideoService getVideoService() {
+    public VideoService video() {
         return videoService;
     }
 

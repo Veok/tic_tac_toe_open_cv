@@ -24,7 +24,6 @@ public class Cell {
         this.maxX = maxX;
         this.minY = minY;
         this.maxY = maxY;
-
     }
 
     public boolean isPainted() {

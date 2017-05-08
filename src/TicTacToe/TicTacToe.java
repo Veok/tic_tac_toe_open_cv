@@ -1,5 +1,6 @@
 package TicTacToe;
 
+import TicTacToe.controller.ViewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -7,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.opencv.core.Core;
-import TicTacToe.controller.ViewController;
 
 
 public class TicTacToe extends Application {

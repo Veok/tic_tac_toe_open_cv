@@ -6,7 +6,7 @@ import org.opencv.imgproc.Imgproc;
 /**
  * @author Lelental on 05.05.2017.
  */
-public class NoughtDetection implements ICanBeDetected {
+public class ObjectDetection implements ICanBeDetected {
 
     private Mat gray;
     private Mat hsv;
@@ -14,7 +14,7 @@ public class NoughtDetection implements ICanBeDetected {
     private Point detectedPoint;
     private Mat circles = new Mat();
 
-    NoughtDetection(Mat mat) {
+    ObjectDetection(Mat mat) {
         this.gray = new Mat();
         this.hsv = new Mat();
         this.mat = mat;

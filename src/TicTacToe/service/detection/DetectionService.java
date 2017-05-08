@@ -8,19 +8,19 @@ import org.opencv.core.Mat;
  */
 public class DetectionService implements IRestartService {
 
-    private NoughtDetection noughtDetection;
+    private ObjectDetection objectDetection;
 
     public DetectionService(Mat mat) {
-        this.noughtDetection = new NoughtDetection(mat);
+        this.objectDetection = new ObjectDetection(mat);
     }
 
     @Override
     public void restartParameters() {
-        noughtDetection.resetDetection();
+        objectDetection.resetDetection();
     }
 
-    public NoughtDetection getNoughtDetection() {
-        return noughtDetection;
+    public ObjectDetection getObjectDetection() {
+        return objectDetection;
     }
 
 
