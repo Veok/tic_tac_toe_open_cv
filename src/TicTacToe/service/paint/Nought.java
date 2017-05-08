@@ -1,9 +1,9 @@
-package TicTacToe.service.draw;
+package TicTacToe.service.paint;
 
 import TicTacToe.model.Cell;
 import TicTacToe.model.Mark;
 import TicTacToe.service.ai.AIService;
-import TicTacToe.service.position.CellPosition;
+import TicTacToe.service.coordinates.CellCoordinate;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.core.Scalar;
@@ -14,19 +14,20 @@ import java.util.List;
 /**
  * @author Lelental on 05.05.2017.
  */
-public class NoughtDraw implements ICanBeDraw {
+public class Nought implements ICanBePainted {
 
     private Point pointOfCircle;
     private List<Cell> cells;
     private Mat mat;
 
-    NoughtDraw(List<Cell> cells, Mat mat) {
+    Nought(List<Cell> cells, Mat mat) {
         this.cells = cells;
         this.mat = mat;
     }
 
     @Override
     public void draw() {
+
         if (pointOfCircle != null) {
 
             int noughtThickness = 4;
@@ -41,22 +42,18 @@ public class NoughtDraw implements ICanBeDraw {
                 }
 
                 if (x > cell.getMinX() && x < cell.getMaxX() && y > cell.getMinY() && y < cell.getMaxY()
-                        && cell.getMark() != Mark.Cross && cell.getMark() != Mark.Nought) {
+                        && cell.getMark() == null) {
 
                     cell.setPainted(true);
                     cell.setMark(Mark.Nought);
-                    CellPosition.cellArray(cell.getRow(), cell.getColumn(), cell.getMark());
+                    CellCoordinate.cellArray(cell.getRow(), cell.getColumn(), cell.getMark());
                     AIService.turn++;
                 }
             }
         }
     }
 
-
-
     public void setPointOfCircle(Point pointOfCircle) {
         this.pointOfCircle = pointOfCircle;
     }
-
-
 }

@@ -20,7 +20,7 @@ public class VideoService {
         this.videoCapture = new VideoCapture();
     }
 
-    public Mat getFrame() {
+    public Mat getCapturedFrame() {
         videoCapture.read(mat);
         Core.flip(mat, mat, 1);
         return mat;
@@ -30,7 +30,7 @@ public class VideoService {
         return mat;
     }
 
-    public VideoCapture getVideoCapture() {
+    public VideoCapture capture() {
         return videoCapture;
     }
 

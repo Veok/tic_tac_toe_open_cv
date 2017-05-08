@@ -9,10 +9,8 @@ public class Cell {
 
     private int row;
     private int column;
-    private double minX;
-    private double maxX;
-    private double minY;
-    private double maxY;
+    private double minX, maxX;
+    private double minY, maxY;
     private boolean isPainted;
     private Mark mark;
     private Point centerPoint;
@@ -26,7 +24,6 @@ public class Cell {
         this.maxX = maxX;
         this.minY = minY;
         this.maxY = maxY;
-
     }
 
     public boolean isPainted() {

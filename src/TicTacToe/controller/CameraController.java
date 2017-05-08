@@ -6,7 +6,7 @@ import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
-import org.opencv.core.*;
+import org.opencv.core.Mat;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
@@ -23,41 +23,39 @@ public class CameraController {
     private final static int CAMERA_WIDTH_ID = 3;
     private static int CAMERA_HEIGHT_ID = 4;
 
-    private GameController gameController;
+    private GameController game;
     private ScheduledExecutorService timer;
     private boolean isRunning;
 
     CameraController() {
-        this.gameController = new GameController();
+        this.game = new GameController();
         this.isRunning = true;
     }
 
     public void initializeCamera(ViewController viewController) {
 
-        gameController.getVideoService().getVideoCapture().open(CAMERA_ID);
-
-        gameController.getVideoService().getVideoCapture()
-                .set(CAMERA_WIDTH_ID, VideoService.CAMERA_WIDTH);
-
-        gameController.getVideoService().getVideoCapture()
-                .set(CAMERA_HEIGHT_ID, VideoService.CAMERA_HEIGHT);
+        game.video().capture().open(CAMERA_ID);
+        game.video().capture().set(CAMERA_WIDTH_ID, VideoService.CAMERA_WIDTH);
+        game.video().capture().set(CAMERA_HEIGHT_ID, VideoService.CAMERA_HEIGHT);
 
         if (isRunning) {
             Runnable runnable = () -> {
-                Mat image = gameController.getVideoService().getFrame();
-                CameraController.toFxImage(image);
-                gameController.startGame();
-                CameraController.onFXThread(viewController.getFrame().imageProperty(), toFxImage(image));
+                Mat image = game.video().getCapturedFrame();
+                toFxImage(image);
+                game.startGame();
+                onFXThread(viewController.getFrame().imageProperty(), toFxImage(image));
             };
             timer = Executors.newSingleThreadScheduledExecutor();
             timer.scheduleAtFixedRate(runnable, 0, 33, TimeUnit.MILLISECONDS);
+
         } else {
             timer.shutdown();
-            gameController.getVideoService().getVideoCapture().release();
+            game.video().capture().release();
         }
     }
 
     private static BufferedImage matToBufferedImage(Mat original) {
+
         BufferedImage image;
         int width = original.width(), height = original.height(), channels = original.channels();
         byte[] sourcePixels = new byte[width * height * channels];
@@ -72,6 +70,7 @@ public class CameraController {
         System.arraycopy(sourcePixels, 0, targetPixels, 0, sourcePixels.length);
 
         return image;
+
     }
 
 
@@ -91,11 +90,7 @@ public class CameraController {
         isRunning = false;
     }
 
-    public void turnOn() {
-        isRunning = true;
-    }
-
-    public GameController getGameController() {
-        return gameController;
+    GameController getGame() {
+        return game;
     }
 }

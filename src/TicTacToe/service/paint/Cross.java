@@ -1,9 +1,9 @@
-package TicTacToe.service.draw;
+package TicTacToe.service.paint;
 
 import TicTacToe.model.Cell;
 import TicTacToe.model.Mark;
 import TicTacToe.service.ai.AIService;
-import TicTacToe.service.position.CellPosition;
+import TicTacToe.service.coordinates.CellCoordinate;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.core.Scalar;
@@ -16,13 +16,13 @@ import static TicTacToe.service.ai.AIService.turn;
 /**
  * @author Lelental on 05.05.2017.
  */
-public class CrossDraw implements ICanBeDraw {
+public class Cross implements ICanBePainted {
 
     private List<Cell> cells;
     private Mat mat;
     private AIService aiService;
 
-    CrossDraw(List<Cell> cells, Mat mat) {
+    Cross(List<Cell> cells, Mat mat) {
         this.cells = cells;
         this.mat = mat;
     }
@@ -54,7 +54,7 @@ public class CrossDraw implements ICanBeDraw {
                     cell = cell2;
                     cell.setPainted(true);
                     cell.setMark(Mark.Cross);
-                    CellPosition.cellArray(cell.getRow(), cell.getColumn(), cell.getMark());
+                    CellCoordinate.cellArray(cell.getRow(), cell.getColumn(), cell.getMark());
                 }
             }
         }

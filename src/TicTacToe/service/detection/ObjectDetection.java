@@ -6,14 +6,15 @@ import org.opencv.imgproc.Imgproc;
 /**
  * @author Lelental on 05.05.2017.
  */
-public class NoughtDetection  implements ICanBeDetected {
+public class ObjectDetection implements ICanBeDetected {
 
     private Mat gray;
     private Mat hsv;
     private Mat mat;
     private Point detectedPoint;
+    private Mat circles = new Mat();
 
-    NoughtDetection(Mat mat) {
+    ObjectDetection(Mat mat) {
         this.gray = new Mat();
         this.hsv = new Mat();
         this.mat = mat;
@@ -22,7 +23,6 @@ public class NoughtDetection  implements ICanBeDetected {
 
     @Override
     public void detect() {
-        Mat circles = new Mat();
 
         Imgproc.cvtColor(mat, gray, Imgproc.COLOR_RGBA2GRAY);
         Imgproc.cvtColor(mat, hsv, Imgproc.COLOR_RGB2HSV);
@@ -38,9 +38,13 @@ public class NoughtDetection  implements ICanBeDetected {
         }
     }
 
+
     public Point getDetectedPoint() {
         return detectedPoint;
     }
 
 
+    void resetDetection() {
+        this.detectedPoint = null;
+    }
 }

@@ -1,19 +1,27 @@
 package TicTacToe.service.detection;
 
+import TicTacToe.service.IRestartService;
 import org.opencv.core.Mat;
 
 /**
  * @author Lelental on 05.05.2017.
  */
-public class DetectionService {
+public class DetectionService implements IRestartService {
 
-    private NoughtDetection noughtDetection;
+    private ObjectDetection objectDetection;
 
     public DetectionService(Mat mat) {
-        this.noughtDetection = new NoughtDetection(mat);
+        this.objectDetection = new ObjectDetection(mat);
     }
 
-    public NoughtDetection getNoughtDetection() {
-        return noughtDetection;
+    @Override
+    public void restartParameters() {
+        objectDetection.resetDetection();
     }
+
+    public ObjectDetection getObjectDetection() {
+        return objectDetection;
+    }
+
+
 }

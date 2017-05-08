@@ -1,4 +1,4 @@
-package TicTacToe.service.draw;
+package TicTacToe.service.paint;
 
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
@@ -11,11 +11,11 @@ import static TicTacToe.service.video.VideoService.CAMERA_WIDTH;
 /**
  * @author Lelental on 05.05.2017.
  */
-public class BoardDraw implements ICanBeDraw {
+public class Board implements ICanBePainted {
 
     private Mat mat;
 
-    BoardDraw(Mat mat) {
+    Board(Mat mat) {
         this.mat = mat;
     }
 
