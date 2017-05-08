@@ -59,7 +59,6 @@ public class CellPosition {
     }
 
     void resetCellArray(){
-        cellArray = null;
         cellArray = new Mark[3][3];
     }
 }

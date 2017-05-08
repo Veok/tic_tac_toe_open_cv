@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class NoughtDraw implements ICanBeDraw {
 
-    private Point pointOfCircle;
+    private  Point pointOfCircle;
     private List<Cell> cells;
     private Mat mat;
 
@@ -27,6 +27,7 @@ public class NoughtDraw implements ICanBeDraw {
 
     @Override
     public void draw() {
+
         if (pointOfCircle != null) {
 
             int noughtThickness = 4;
@@ -41,7 +42,7 @@ public class NoughtDraw implements ICanBeDraw {
                 }
 
                 if (x > cell.getMinX() && x < cell.getMaxX() && y > cell.getMinY() && y < cell.getMaxY()
-                        && cell.getMark() != Mark.Cross && cell.getMark() != Mark.Nought) {
+                        && cell.getMark() == null) {
 
                     cell.setPainted(true);
                     cell.setMark(Mark.Nought);
@@ -53,10 +54,7 @@ public class NoughtDraw implements ICanBeDraw {
     }
 
 
-
     public void setPointOfCircle(Point pointOfCircle) {
         this.pointOfCircle = pointOfCircle;
     }
-
-
 }

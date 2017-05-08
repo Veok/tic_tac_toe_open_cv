@@ -11,7 +11,7 @@ import TicTacToe.service.video.VideoService;
 /**
  * @author Lelental on 17.04.2017.
  */
-public class GameService {
+public class GameService implements IRestartService{
 
     private static boolean gameOver = false;
     private DrawService drawService;
@@ -43,20 +43,17 @@ public class GameService {
         drawService.getNoughtDraw().draw();
         drawService.getCrossDraw().draw();
         drawService.getWinLineDraw().draw();
+        System.out.println(AIService.turn);
 
 
     }
 
-    public void restartGame() {
+    public void restartParameters() {
 
-        for (Cell cell : positionService.getCellPosition().getListOfCells()) {
-            cell.setPainted(false);
-            cell.setMark(null);
-        }
-        AIService.turn = 0;
-        drawService.getNoughtDraw().setPointOfCircle(null);
-        positionService.restartPosition();
-        drawService.erase();
+        detectionService.restartParameters();
+        drawService.restartParameters();
+        positionService.restartParameters();
+        aiService.restartParameters();
         gameOver = false;
 
     }

@@ -24,14 +24,7 @@ public class TicTacToe extends Application {
         ViewController viewController = fxmlLoader.getController();
 
         Button button = viewController.resetButton;
-        button.setOnAction(event -> {
-                    viewController.reset();
-                    viewController.getCameraController().turnOff();
-                    viewController.getCameraController().initializeCamera(viewController);
-                    viewController.getCameraController().turnOn();
-                    viewController.getCameraController().initializeCamera(viewController);
-                }
-        );
+        button.setOnAction(event -> viewController.reset());
 
         primaryStage.setOnCloseRequest((WindowEvent event) -> {
             if (viewController.getCameraController().isRunning()) {

@@ -20,6 +20,7 @@ public class WinLineDraw implements ICanBeDraw {
     private static Point endPoint;
     private List<Cell> cells;
     private Mat mat;
+    private static boolean drawMe = false;
 
     WinLineDraw(List<Cell> cells, Mat mat) {
         this.cells = cells;
@@ -31,7 +32,7 @@ public class WinLineDraw implements ICanBeDraw {
 
         List<Cell> list = cells;
 
-        if (!GameService.isGameOver()) {
+        if (!GameService.isGameOver() && !drawMe) {
 
             if (winPositions(0, 0, list.get(0).getMark())) {
 
@@ -39,46 +40,54 @@ public class WinLineDraw implements ICanBeDraw {
 
                     startPoint = list.get(0).getCenterPoint();
                     endPoint = list.get(2).getCenterPoint();
+                    drawMe = true;
                 }
                 if (list.get(0).getMark() == list.get(3).getMark() && list.get(0).getMark() == list.get(6).getMark()) {
 
                     startPoint = list.get(0).getCenterPoint();
                     endPoint = list.get(6).getCenterPoint();
-                }
-            }
+                    drawMe = true;
 
-            if (winPositions(0, 1, list.get(1).getMark())) {
+                }
+            } else if (winPositions(0, 1, list.get(1).getMark())) {
 
                 startPoint = list.get(1).getCenterPoint();
                 endPoint = list.get(7).getCenterPoint();
+                drawMe = true;
 
-            }
-            if (winPositions(0, 2, list.get(2).getMark())) {
+
+            } else if (winPositions(0, 2, list.get(2).getMark())) {
 
                 startPoint = list.get(2).getCenterPoint();
                 endPoint = list.get(8).getCenterPoint();
-            }
-            if (winPositions(1, 0, list.get(3).getMark())) {
+                drawMe = true;
+
+            } else if (winPositions(1, 0, list.get(3).getMark())) {
 
                 startPoint = list.get(3).getCenterPoint();
                 endPoint = list.get(5).getCenterPoint();
-            }
-            if (winPositions(2, 0, list.get(6).getMark())) {
+                drawMe = true;
+
+            } else if (winPositions(2, 0, list.get(6).getMark())) {
 
                 startPoint = list.get(6).getCenterPoint();
-                endPoint = list.get(9).getCenterPoint();
-            }
-            if (winPositions(1, 1, list.get(6).getMark())
+                endPoint = list.get(8).getCenterPoint();
+                drawMe = true;
+
+            } else if (winPositions(1, 1, list.get(6).getMark())
                     && list.get(6).getMark() == list.get(2).getMark()) {
 
                 startPoint = list.get(6).getCenterPoint();
                 endPoint = list.get(2).getCenterPoint();
-            }
-            if (winPositions(1, 1, list.get(8).getMark())
+                drawMe = true;
+
+            } else if (winPositions(1, 1, list.get(8).getMark())
                     && list.get(8).getMark() == list.get(0).getMark()) {
 
                 startPoint = list.get(8).getCenterPoint();
                 endPoint = list.get(0).getCenterPoint();
+                drawMe = true;
+
             }
         } else {
             paintEndGameLine();
@@ -90,9 +99,10 @@ public class WinLineDraw implements ICanBeDraw {
                 new Scalar(255, 255, 255), 11);
     }
 
-    protected void erase(){
+    void erase() {
         startPoint = null;
         endPoint = null;
+        drawMe = false;
     }
 
 }

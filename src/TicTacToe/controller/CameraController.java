@@ -35,22 +35,21 @@ public class CameraController {
     public void initializeCamera(ViewController viewController) {
 
         gameController.getVideoService().getVideoCapture().open(CAMERA_ID);
-
-        gameController.getVideoService().getVideoCapture()
-                .set(CAMERA_WIDTH_ID, VideoService.CAMERA_WIDTH);
-
-        gameController.getVideoService().getVideoCapture()
-                .set(CAMERA_HEIGHT_ID, VideoService.CAMERA_HEIGHT);
+        gameController.getVideoService().getVideoCapture().set(CAMERA_WIDTH_ID, VideoService.CAMERA_WIDTH);
+        gameController.getVideoService().getVideoCapture().set(CAMERA_HEIGHT_ID, VideoService.CAMERA_HEIGHT);
 
         if (isRunning) {
+
             Runnable runnable = () -> {
                 Mat image = gameController.getVideoService().getFrame();
                 CameraController.toFxImage(image);
                 gameController.startGame();
                 CameraController.onFXThread(viewController.getFrame().imageProperty(), toFxImage(image));
             };
+
             timer = Executors.newSingleThreadScheduledExecutor();
             timer.scheduleAtFixedRate(runnable, 0, 33, TimeUnit.MILLISECONDS);
+
         } else {
             timer.shutdown();
             gameController.getVideoService().getVideoCapture().release();
@@ -91,11 +90,7 @@ public class CameraController {
         isRunning = false;
     }
 
-    public void turnOn() {
-        isRunning = true;
-    }
-
-    public GameController getGameController() {
+    GameController getGameController() {
         return gameController;
     }
 }

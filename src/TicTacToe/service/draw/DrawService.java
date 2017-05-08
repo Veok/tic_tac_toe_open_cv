@@ -1,6 +1,7 @@
 package TicTacToe.service.draw;
 
 import TicTacToe.model.Cell;
+import TicTacToe.service.IRestartService;
 import org.opencv.core.Mat;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
 /**
  * @author Lelental on 05.05.2017.
  */
-public class DrawService {
+public class DrawService implements IRestartService{
 
     private NoughtDraw noughtDraw;
     private BoardDraw boardDraw;
@@ -23,6 +24,11 @@ public class DrawService {
         this.winLineDraw = new WinLineDraw(cellList, mat);
     }
 
+    @Override
+    public void restartParameters(){
+        winLineDraw.erase();
+        noughtDraw.setPointOfCircle(null);
+    }
 
     public NoughtDraw getNoughtDraw() {
         return noughtDraw;
@@ -40,7 +46,5 @@ public class DrawService {
         return winLineDraw;
     }
 
-    public void erase(){
-        winLineDraw.erase();
-    }
+
 }
