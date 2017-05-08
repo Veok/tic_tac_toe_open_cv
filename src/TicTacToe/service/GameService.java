@@ -1,7 +1,5 @@
 package TicTacToe.service;
 
-
-import TicTacToe.model.Cell;
 import TicTacToe.service.ai.AIService;
 import TicTacToe.service.detection.DetectionService;
 import TicTacToe.service.draw.DrawService;
@@ -21,6 +19,7 @@ public class GameService implements IRestartService{
     private VideoService videoService;
 
     protected GameService() {
+
         this.videoService = new VideoService();
         this.positionService = new PositionService();
         this.aiService = new AIService(positionService.getCellPosition().getListOfCells());
