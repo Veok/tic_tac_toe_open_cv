@@ -1,10 +1,10 @@
 package TicTacToe.service;
 
+import TicTacToe.controller.VideoController;
 import TicTacToe.service.ai.AIService;
 import TicTacToe.service.coordinates.CoordinateService;
 import TicTacToe.service.detection.DetectionService;
 import TicTacToe.service.paint.PaintService;
-import TicTacToe.service.video.VideoService;
 
 /**
  * @author Lelental on 17.04.2017.
@@ -16,16 +16,12 @@ public class GameService {
     private AIService aiService;
     private DetectionService detectionService;
     private CoordinateService coordinateService;
-    private VideoService videoService;
 
-    protected GameService() {
-
-        this.videoService = new VideoService();
+    protected GameService(VideoController video) {
         this.coordinateService = new CoordinateService();
         this.aiService = new AIService(coordinateService.getCellCoordinate().getCells());
-        this.detectionService = new DetectionService(videoService.getMat());
-        this.paintService = new PaintService(videoService.getMat(),
-                coordinateService.getCellCoordinate().getCells());
+        this.detectionService = new DetectionService(video.getMat());
+        this.paintService = new PaintService(video.getMat(), coordinateService.getCellCoordinate().getCells());
 
     }
 
@@ -56,9 +52,6 @@ public class GameService {
 
     }
 
-    public VideoService video() {
-        return videoService;
-    }
 
     public static void setGameOver() {
         GameService.gameOver = true;
