@@ -29,8 +29,8 @@ public class Cross implements ICanBePainted {
 
     @Override
     public void paint() {
-        int crossThickness = 11;
-        Scalar crossColor = new Scalar(231, 31, 3);
+        int crossThickness = 10;
+        Scalar crossColor = new Scalar(112,41,99);
 
         if (turn > 0) {
 

@@ -22,8 +22,8 @@ public class Board implements ICanBePainted {
     @Override
     public void paint() {
 
-        int lineThickness = 11;
-        Scalar boardColor = new Scalar(54, 69, 79);
+        int lineThickness = 7;
+        Scalar boardColor = new Scalar(64, 88, 79);
 
         Imgproc.line(mat, new Point(CAMERA_WIDTH / 3, 0),
                 new Point(CAMERA_WIDTH / 3, CAMERA_HEIGHT), boardColor, lineThickness);

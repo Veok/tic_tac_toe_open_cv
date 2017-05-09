@@ -30,15 +30,16 @@ public class Nought implements ICanBePainted {
 
         if (pointOfCircle != null) {
 
-            int noughtThickness = 4;
+            int noughtThickness = 7;
             double x = pointOfCircle.x;
             double y = pointOfCircle.y;
-            Scalar noughtColor = new Scalar(222, 1, 34);
+            int radius = 50;
+            Scalar noughtColor = new Scalar(0,10,255);
 
             for (Cell cell : cells) {
 
                 if (cell.isPainted() && cell.getMark() != Mark.Cross) {
-                    Imgproc.circle(mat, cell.getCenterPoint(), 20, noughtColor, noughtThickness);
+                    Imgproc.circle(mat, cell.getCenterPoint(), radius, noughtColor, noughtThickness);
                 }
 
                 if (x > cell.getMinX() && x < cell.getMaxX() && y > cell.getMinY() && y < cell.getMaxY()

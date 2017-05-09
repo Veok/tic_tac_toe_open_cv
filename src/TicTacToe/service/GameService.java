@@ -37,6 +37,7 @@ public class GameService {
         }
 
         paintService.getNought().paint();
+        paintService.getWinLine().paint();
         paintService.getCross().paint();
         paintService.getWinLine().paint();
 
