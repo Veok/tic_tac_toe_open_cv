@@ -5,5 +5,5 @@ package TicTacToe.service;
  */
 public interface IRestartService {
 
-    void restartParameters();
+    void restart();
 }

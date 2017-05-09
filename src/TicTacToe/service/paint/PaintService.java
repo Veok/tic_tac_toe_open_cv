@@ -25,7 +25,7 @@ public class PaintService implements IRestartService {
     }
 
     @Override
-    public void restartParameters() {
+    public void restart() {
         winLine.erase();
         nought.setPointOfCircle(null);
     }

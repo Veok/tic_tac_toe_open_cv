@@ -20,7 +20,7 @@ public class Board implements ICanBePainted {
     }
 
     @Override
-    public void draw() {
+    public void paint() {
 
         int lineThickness = 11;
         Scalar boardColor = new Scalar(54, 69, 79);

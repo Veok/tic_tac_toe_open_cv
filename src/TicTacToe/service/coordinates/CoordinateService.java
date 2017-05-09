@@ -14,7 +14,7 @@ public class CoordinateService implements IRestartService {
     }
 
     @Override
-    public void restartParameters() {
+    public void restart() {
         cellCoordinate.resetCellArray();
         for (Cell cell : cellCoordinate.getCells()) {
             cell.setPainted(false);
