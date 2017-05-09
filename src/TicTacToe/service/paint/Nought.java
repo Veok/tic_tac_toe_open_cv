@@ -26,7 +26,7 @@ public class Nought implements ICanBePainted {
     }
 
     @Override
-    public void draw() {
+    public void paint() {
 
         if (pointOfCircle != null) {
 

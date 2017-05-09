@@ -15,7 +15,7 @@ public class DetectionService implements IRestartService {
     }
 
     @Override
-    public void restartParameters() {
+    public void restart() {
         objectDetection.resetDetection();
     }
 

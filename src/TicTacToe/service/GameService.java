@@ -28,7 +28,7 @@ public class GameService {
 
     public void startGame() {
 
-        paintService.getBoard().draw();
+        paintService.getBoard().paint();
         paintService.getNought().setPointOfCircle(detectionService.getObjectDetection().getDetectedPoint());
         paintService.getCross().setAiService(aiService);
 
@@ -36,18 +36,18 @@ public class GameService {
             detectionService.getObjectDetection().detect();
         }
 
-        paintService.getNought().draw();
-        paintService.getCross().draw();
-        paintService.getWinLine().draw();
+        paintService.getNought().paint();
+        paintService.getCross().paint();
+        paintService.getWinLine().paint();
 
     }
 
     public void restartGame() {
 
-        detectionService.restartParameters();
-        paintService.restartParameters();
-        coordinateService.restartParameters();
-        aiService.restartParameters();
+        detectionService.restart();
+        paintService.restart();
+        coordinateService.restart();
+        aiService.restart();
         gameOver = false;
 
     }

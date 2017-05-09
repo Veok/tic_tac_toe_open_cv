@@ -18,7 +18,7 @@ public class AIService implements IRestartService {
     }
 
     @Override
-    public void restartParameters() {
+    public void restart() {
         turn = 0;
     }
 

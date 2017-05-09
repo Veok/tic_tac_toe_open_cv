@@ -5,6 +5,6 @@ package TicTacToe.service.paint;
  */
 public interface ICanBePainted {
 
-    void draw();
+    void paint();
 
 }

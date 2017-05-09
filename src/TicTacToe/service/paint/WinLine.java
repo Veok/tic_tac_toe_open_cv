@@ -20,7 +20,7 @@ public class WinLine implements ICanBePainted {
     private static Point endPoint;
     private List<Cell> list;
     private Mat mat;
-    private boolean canDraw = false;
+    private boolean canPaint = false;
 
     WinLine(List<Cell> list, Mat mat) {
         this.list = list;
@@ -28,9 +28,9 @@ public class WinLine implements ICanBePainted {
     }
 
     @Override
-    public void draw() {
+    public void paint() {
 
-        if (!GameService.isGameOver() && !canDraw) {
+        if (!GameService.isGameOver() && !canPaint) {
 
             if (winPositions(0, 0, list.get(0).getMark())) {
 
@@ -77,13 +77,13 @@ public class WinLine implements ICanBePainted {
     private void indicatePoints(int beginCell, int endCell) {
         startPoint = list.get(beginCell).getCenterPoint();
         endPoint = list.get(endCell).getCenterPoint();
-        canDraw = true;
+        canPaint = true;
     }
 
     void erase() {
         startPoint = null;
         endPoint = null;
-        canDraw = false;
+        canPaint = false;
     }
 
 }

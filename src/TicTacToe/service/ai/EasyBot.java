@@ -12,11 +12,11 @@ import static TicTacToe.service.ai.AIService.turn;
  */
 public class EasyBot implements ICanMakeMove {
 
-    EasyBot(List<Cell> cellList) {
-        this.cellList = cellList;
+    EasyBot(List<Cell> cells) {
+        this.cells = cells;
     }
 
-    private List<Cell> cellList;
+    private List<Cell> cells;
     private static int cellId;
 
     public int getCellId() {
@@ -30,7 +30,7 @@ public class EasyBot implements ICanMakeMove {
                     break;
                 }
                 cellId = ThreadLocalRandom.current().nextInt(0, 9);
-            } while (cellList.get(cellId).isPainted());
+            } while (cells.get(cellId).isPainted());
 
             turn++;
 
