@@ -71,7 +71,7 @@ public class WinLine implements ICanBePainted {
 
     private void paintEndGameLine() {
         Imgproc.line(mat, startPoint, endPoint,
-                new Scalar(255, 255, 255), 11);
+                new Scalar(100,255,186), 8);
     }
 
     private void indicatePoints(int beginCell, int endCell) {
