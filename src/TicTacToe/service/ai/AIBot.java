@@ -10,9 +10,9 @@ import static TicTacToe.service.ai.AIService.turn;
 /**
  * @author Lelental on 05.05.2017.
  */
-public class EasyBot implements ICanMakeMove {
+public class AIBot  {
 
-    EasyBot(List<Cell> cells) {
+    AIBot(List<Cell> cells) {
         this.cells = cells;
     }
 
@@ -36,4 +36,7 @@ public class EasyBot implements ICanMakeMove {
 
         }
     }
+
 }
+
+

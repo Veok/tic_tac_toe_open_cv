@@ -2,6 +2,8 @@ package TicTacToe.service.paint;
 
 import TicTacToe.model.Cell;
 import TicTacToe.service.IRestartService;
+import TicTacToe.service.ai.AIService;
+import TicTacToe.service.detection.DetectionService;
 import org.opencv.core.Mat;
 
 import java.util.List;
@@ -10,7 +12,7 @@ import java.util.List;
 /**
  * @author Lelental on 05.05.2017.
  */
-public class PaintService implements IRestartService {
+public class PaintService implements IRestartService, ICanBePainted {
 
     private Nought nought;
     private Board board;
@@ -25,26 +27,25 @@ public class PaintService implements IRestartService {
     }
 
     @Override
+    public void paint() {
+        board.paint();
+        nought.paint();
+        winLine.paint();
+        cross.paint();
+        winLine.paint();
+    }
+
+    @Override
     public void restart() {
         winLine.erase();
         nought.setPointOfCircle(null);
     }
 
-    public Nought getNought() {
-        return nought;
+    public void setService(DetectionService detectionService, AIService aiService){
+        nought.setPointOfCircle(detectionService.getDetectedPoint());
+        cross.setAiService(aiService);
     }
 
-    public Board getBoard() {
-        return board;
-    }
-
-    public Cross getCross() {
-        return cross;
-    }
-
-    public WinLine getWinLine() {
-        return winLine;
-    }
 
 
 }
