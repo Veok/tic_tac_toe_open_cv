@@ -2,11 +2,12 @@ package TicTacToe.service.detection;
 
 import TicTacToe.service.IRestartService;
 import org.opencv.core.Mat;
+import org.opencv.core.Point;
 
 /**
  * @author Lelental on 05.05.2017.
  */
-public class DetectionService implements IRestartService {
+public class DetectionService implements IRestartService, ICanBeDetected {
 
     private ObjectDetection objectDetection;
 
@@ -15,12 +16,17 @@ public class DetectionService implements IRestartService {
     }
 
     @Override
+    public void detect() {
+        objectDetection.detect();
+    }
+
+    @Override
     public void restart() {
         objectDetection.resetDetection();
     }
 
-    public ObjectDetection getObjectDetection() {
-        return objectDetection;
+    public Point getDetectedPoint() {
+        return objectDetection.getDetectedPoint();
     }
 
 

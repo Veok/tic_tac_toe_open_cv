@@ -26,6 +26,7 @@ public class Cell {
         this.maxY = maxY;
     }
 
+
     public boolean isPainted() {
         return isPainted;
     }

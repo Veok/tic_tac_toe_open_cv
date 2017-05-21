@@ -27,19 +27,11 @@ public class GameService {
 
 
     public void startGame() {
-
-        paintService.getBoard().paint();
-        paintService.getNought().setPointOfCircle(detectionService.getObjectDetection().getDetectedPoint());
-        paintService.getCross().setAiService(aiService);
-
+        paintService.setService(detectionService, aiService);
         if (!gameOver) {
-            detectionService.getObjectDetection().detect();
+            detectionService.detect();
         }
-
-        paintService.getNought().paint();
-        paintService.getWinLine().paint();
-        paintService.getCross().paint();
-        paintService.getWinLine().paint();
+            paintService.paint();
 
     }
 

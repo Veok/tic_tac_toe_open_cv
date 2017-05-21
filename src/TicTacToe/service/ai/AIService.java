@@ -11,10 +11,10 @@ import java.util.List;
 public class AIService implements IRestartService {
 
     public static int turn = 0;
-    private EasyBot easyBot;
+    private AIBot AIBot;
 
     public AIService(List<Cell> cellList) {
-        this.easyBot = new EasyBot(cellList);
+        this.AIBot = new AIBot(cellList);
     }
 
     @Override
@@ -22,8 +22,8 @@ public class AIService implements IRestartService {
         turn = 0;
     }
 
-    public EasyBot getEasyBot() {
-        return easyBot;
+    public AIBot getAIBot() {
+        return AIBot;
     }
 
 

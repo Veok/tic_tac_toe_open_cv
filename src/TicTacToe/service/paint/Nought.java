@@ -26,7 +26,7 @@ public class Nought implements ICanBePainted {
     }
 
     @Override
-    public void paint() {
+    public void paint()  {
 
         if (pointOfCircle != null) {
 
@@ -54,7 +54,7 @@ public class Nought implements ICanBePainted {
         }
     }
 
-    public void setPointOfCircle(Point pointOfCircle) {
+    void setPointOfCircle(Point pointOfCircle) {
         this.pointOfCircle = pointOfCircle;
     }
 }

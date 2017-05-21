@@ -5,5 +5,5 @@ package TicTacToe.service.detection;
  */
 public interface ICanBeDetected {
 
-    void detect();
+    void detect() throws InterruptedException;
 }

@@ -40,7 +40,7 @@ public class CellCoordinate {
 
     }
 
-    static Mark[][] getMarkBoard() {
+    public static Mark[][] getMarkBoard() {
         return markBoard;
     }
 
