@@ -27,7 +27,7 @@ public class PaintService implements IRestartService, ICanBePainted {
     }
 
     @Override
-    public void paint() {
+    public void paint(){
         board.paint();
         nought.paint();
         winLine.paint();

@@ -31,7 +31,8 @@ public class GameService {
         if (!gameOver) {
             detectionService.detect();
         }
-        paintService.paint();
+            paintService.paint();
+
     }
 
     public void restartGame() {

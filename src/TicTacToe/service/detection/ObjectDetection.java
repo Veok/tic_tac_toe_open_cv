@@ -24,8 +24,8 @@ public class ObjectDetection implements ICanBeDetected {
     @Override
     public void detect() {
 
-        Scalar startingColorFq = new Scalar(0,230,0);
-        Scalar endingColorFq = new Scalar(0,255,0);
+        Scalar startingColorFq = new Scalar(0, 230, 0);
+        Scalar endingColorFq = new Scalar(0, 255, 0);
 
         Imgproc.cvtColor(mat, gray, Imgproc.COLOR_RGBA2GRAY);
         Imgproc.cvtColor(mat, hsv, Imgproc.COLOR_RGB2HSV);

@@ -31,9 +31,7 @@ public class AIBot  {
                 }
                 cellId = ThreadLocalRandom.current().nextInt(0, 9);
             } while (cells.get(cellId).isPainted());
-
             turn++;
-
         }
     }
 
