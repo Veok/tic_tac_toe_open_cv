@@ -10,7 +10,7 @@ import static TicTacToe.service.ai.AIService.turn;
 /**
  * @author Lelental on 05.05.2017.
  */
-public class AIBot  {
+public class AIBot {
 
     AIBot(List<Cell> cells) {
         this.cells = cells;
@@ -24,12 +24,17 @@ public class AIBot  {
     }
 
     public void makeMove() {
+
         if (turn % 2 != 0) {
             do {
                 if (turn >= 9) {
                     break;
                 }
-                cellId = ThreadLocalRandom.current().nextInt(0, 9);
+                if (turn == 1) {
+                    cellId = ThreadLocalRandom.current().nextInt(0, 9);
+                }else{
+                    //TODO IMPL OF AI
+                }
             } while (cells.get(cellId).isPainted());
             turn++;
         }
