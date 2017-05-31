@@ -2,6 +2,7 @@ package TicTacToe.service;
 
 import TicTacToe.controller.VideoController;
 import TicTacToe.service.ai.AIService;
+import TicTacToe.service.coordinates.CellCoordinate;
 import TicTacToe.service.coordinates.CoordinateService;
 import TicTacToe.service.detection.DetectionService;
 import TicTacToe.service.paint.PaintService;
@@ -22,16 +23,16 @@ public class GameService {
         this.aiService = new AIService(coordinateService.getCellCoordinate().getCells());
         this.detectionService = new DetectionService(video.getMat());
         this.paintService = new PaintService(video.getMat(), coordinateService.getCellCoordinate().getCells());
-
     }
 
 
     public void startGame() {
+
         paintService.setService(detectionService, aiService);
-        if (!gameOver) {
-            detectionService.detect();
-        }
-            paintService.paint();
+
+        if (!gameOver) { detectionService.detect();}
+
+        paintService.paint();
 
     }
 

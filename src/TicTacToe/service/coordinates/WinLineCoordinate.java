@@ -21,11 +21,11 @@ public class WinLineCoordinate {
                 GameService.setGameOver();
                 return true;
 
-            } else if (firstCrossWin(row, column, mark)) {
+            } else if (firstCrossWin(mark)) {
                 GameService.setGameOver();
                 return true;
 
-            } else if (secondCrossWin(row, column, mark)) {
+            } else if (secondCrossWin(mark)) {
                 GameService.setGameOver();
                 return true;
             }
@@ -33,23 +33,23 @@ public class WinLineCoordinate {
         return false;
     }
 
-    private static boolean rowWin(int row, Mark mark) {
+    public static boolean rowWin(int row, Mark mark) {
         return getMarkBoard()[row][0] == mark && getMarkBoard()[row][1] == mark
                 && getMarkBoard()[row][2] == mark;
     }
 
-    private static boolean columnWin(int column, Mark mark) {
+    public static boolean columnWin(int column, Mark mark) {
         return getMarkBoard()[0][column] == mark && getMarkBoard()[1][column] == mark
                 && getMarkBoard()[2][column] == mark;
     }
 
-    private static boolean firstCrossWin(int row, int column, Mark mark) {
-        return row == 1 && column == 1 && getMarkBoard()[0][0] == mark
-                && getMarkBoard()[row][column] == mark && getMarkBoard()[2][2] == mark;
+    public static boolean firstCrossWin(Mark mark) {
+        return getMarkBoard()[0][0] == mark
+                && getMarkBoard()[1][1] == mark && getMarkBoard()[2][2] == mark;
     }
 
-    private static boolean secondCrossWin(int row, int column, Mark mark) {
-        return row == 1 && column == 1 && getMarkBoard()[2][0] == mark
-                && getMarkBoard()[row][column] == mark && getMarkBoard()[0][2] == mark;
+    public static boolean secondCrossWin(Mark mark) {
+        return getMarkBoard()[2][0] == mark
+                && getMarkBoard()[1][1] == mark && getMarkBoard()[0][2] == mark;
     }
 }

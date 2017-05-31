@@ -4,6 +4,7 @@ import TicTacToe.model.Cell;
 import TicTacToe.model.Mark;
 import TicTacToe.service.ai.AIService;
 import TicTacToe.service.coordinates.CellCoordinate;
+import TicTacToe.service.coordinates.CoordinateService;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.core.Scalar;

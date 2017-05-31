@@ -11,6 +11,7 @@ import org.opencv.imgproc.Imgproc;
 
 import java.util.List;
 
+
 /**
  * @author Lelental on 05.05.2017.
  */
@@ -49,6 +50,7 @@ public class Nought implements ICanBePainted {
                     cell.setMark(Mark.Nought);
                     CellCoordinate.cellArray(cell.getRow(), cell.getColumn(), cell.getMark());
                     AIService.turn++;
+
                 }
             }
         }
