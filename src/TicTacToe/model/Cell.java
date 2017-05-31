@@ -7,8 +7,8 @@ import org.opencv.core.Point;
  */
 public class Cell {
 
-    private int row;
-    private int column;
+    private int id;
+    private int row, column;
     private double minX, maxX;
     private double minY, maxY;
     private boolean isPainted;
@@ -16,7 +16,8 @@ public class Cell {
     private Point centerPoint;
 
 
-    public Cell(Point centerPoint, double minX, double maxX, double minY, double maxY, int row, int column) {
+    public Cell(Point centerPoint, double minX, double maxX, double minY, double maxY, int row, int column, int id) {
+        this.id = id;
         this.row = row;
         this.column = column;
         this.centerPoint = centerPoint;
@@ -69,5 +70,9 @@ public class Cell {
 
     public Point getCenterPoint() {
         return centerPoint;
+    }
+
+    public int getId() {
+        return id;
     }
 }
