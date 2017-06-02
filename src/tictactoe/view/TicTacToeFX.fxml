@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane alignment="center" hgap="10" maxHeight="625.0" maxWidth="960.0" minHeight="625.0" minWidth="960.0"
+          prefHeight="625.0" prefWidth="960.0" vgap="10" xmlns="http://javafx.com/javafx/8"
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="tictactoe.controller.ViewController">
+    <columnConstraints>
+        <ColumnConstraints/>
+        <ColumnConstraints/>
+        <ColumnConstraints/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints/>
+        <RowConstraints/>
+    </rowConstraints>
+    <SplitPane dividerPositions="0.8383838383838383" maxHeight="625.0" maxWidth="960.0" minHeight="625.0"
+               minWidth="960.0" orientation="VERTICAL" prefHeight="625.0" prefWidth="960.0" GridPane.columnSpan="3">
+        <AnchorPane maxHeight="540.0" maxWidth="960.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0"
+                    prefWidth="960.0">
+            <ImageView fx:id="frame" fitHeight="540.0" fitWidth="960.0" layoutX="-2.0" layoutY="-2.0"
+                       pickOnBounds="true" preserveRatio="true"/>
+        </AnchorPane>
+        <AnchorPane maxHeight="85.0" maxWidth="960.0" minHeight="85.0" minWidth="960.0" prefHeight="85.0"
+                    prefWidth="960.0">
+            <Button fx:id="resetButton" alignment="CENTER" layoutX="4.0" layoutY="4.0" mnemonicParsing="false"
+                    prefHeight="77.0" prefWidth="952.0" text="START NEW GAME"/>
+        </AnchorPane>
+    </SplitPane>
+</GridPane>
