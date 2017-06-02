@@ -1,8 +1,8 @@
-package test.service.ai;
+package test.tictactoe.service.ai;
 
+import org.junit.jupiter.api.Test;
 import tictactoe.model.Cell;
 import tictactoe.service.ai.AIService;
-import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
@@ -17,4 +17,5 @@ public class AIBotTest {
     public void test_make_move() {
 
     }
+
 }
