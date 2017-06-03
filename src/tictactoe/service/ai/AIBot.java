@@ -6,7 +6,6 @@ import tictactoe.service.coordinates.CellCoordinate;
 import tictactoe.service.coordinates.WinLineCoordinate;
 
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 import static tictactoe.service.ai.AIService.turn;
 
@@ -33,26 +32,21 @@ public class AIBot {
                 if (turn >= 9) {
                     break;
                 }
-                if (turn == 1) {
-                    cellId = ThreadLocalRandom.current().nextInt(0, 9);
-                } else {
-                    cellId = findBestMove();
-                }
+
+                cellId = findBestMove();
+
             } while (cells.get(cellId).isPainted());
             turn++;
         }
+
     }
 
     private boolean win(Mark mark) {
-        for (int i = 0; i < 3; i++) {
-            if (WinLineCoordinate.rowWin(i, mark)) {
-                return true;
-            }
-            if (WinLineCoordinate.columnWin(i, mark)) {
-                return true;
-            }
-        }
-        return WinLineCoordinate.firstCrossWin(mark) || WinLineCoordinate.secondCrossWin(mark);
+
+        return WinLineCoordinate.rowWin(0, mark) || WinLineCoordinate.rowWin(1, mark)
+                || WinLineCoordinate.rowWin(2, mark) || WinLineCoordinate.columnWin(0, mark)
+                || WinLineCoordinate.columnWin(1, mark) || WinLineCoordinate.columnWin(2, mark)
+                || WinLineCoordinate.firstCrossWin(mark) || WinLineCoordinate.secondCrossWin(mark);
 
     }
 
@@ -71,7 +65,7 @@ public class AIBot {
         int score = evaluate();
 
         if (score == 10) {
-            return score;
+            return  depth;
         }
         if (score == -10) {
             return score;
@@ -80,35 +74,35 @@ public class AIBot {
             return 0;
         }
         if (isMax) {
-            int best = -1000;
+            int bestCross = -1000;
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
 
                     if (CellCoordinate.getMarkBoard()[i][j] == null) {
                         CellCoordinate.setMarkBoard(i, j, Mark.Cross);
-                        best = Math.max(best, minMax(depth + 1, false));
+                        bestCross = Math.max(bestCross, minMax(depth + 1, false));
                         CellCoordinate.setMarkBoard(i, j, null);
                     }
                 }
             }
-            return best;
+            return bestCross;
         } else {
-            int best = 1000;
+            int bestNought = 1000;
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
 
                     if (CellCoordinate.getMarkBoard()[i][j] == null) {
                         CellCoordinate.setMarkBoard(i, j, Mark.Nought);
-                        best = Math.min(best, minMax(depth + 1, true));
+                        bestNought = Math.min(bestNought, minMax(depth + 1, true));
                         CellCoordinate.setMarkBoard(i, j, null);
                     }
                 }
             }
-            return best;
+            return bestNought;
         }
     }
 
-    private int findBestMove() {
+    public int findBestMove() {
 
         int best = -1000;
         int id = 0;
@@ -122,7 +116,12 @@ public class AIBot {
 
                     if (move > best) {
                         for (Cell cell : cells) {
-                            if (cell.getRow() == i && cell.getColumn() == j) {
+                            System.out.println("move value: "+ move
+                                    + " i: " + i + " j: " + j + " row: " + cell.getRow() + " column: "
+                                    + cell.getColumn()
+                                    + " id: " + cell.getId());
+                            best = move;
+                            if (i == cell.getRow() && j == cell.getColumn()) {
                                 id = cell.getId();
                             }
                         }
