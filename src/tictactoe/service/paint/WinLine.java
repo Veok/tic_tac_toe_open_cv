@@ -9,7 +9,7 @@ import org.opencv.imgproc.Imgproc;
 
 import java.util.List;
 
-import static tictactoe.service.coordinates.WinLineCoordinate.winPositions;
+import static tictactoe.service.coordinates.WinLineCoordinate.winPositionsToPaint;
 
 /**
  * @author Lelental on 05.05.2017.
@@ -32,7 +32,7 @@ public class WinLine implements ICanBePainted {
 
         if (!GameService.isGameOver() && !canPaint) {
 
-            if (winPositions(0, 0, list.get(0).getMark())) {
+            if (winPositionsToPaint(0, 0, list.get(0).getMark())) {
 
                 if (list.get(1).getMark() == list.get(0).getMark()
                         && list.get(0).getMark() == list.get(2).getMark()) {
@@ -44,23 +44,23 @@ public class WinLine implements ICanBePainted {
                     indicatePoints(0, 6);
                 }
 
-            } else if (winPositions(0, 1, list.get(1).getMark())) {
+            } else if (winPositionsToPaint(0, 1, list.get(1).getMark())) {
                 indicatePoints(1, 7);
 
-            } else if (winPositions(0, 2, list.get(2).getMark())) {
+            } else if (winPositionsToPaint(0, 2, list.get(2).getMark())) {
                 indicatePoints(2, 8);
 
-            } else if (winPositions(1, 0, list.get(3).getMark())) {
+            } else if (winPositionsToPaint(1, 0, list.get(3).getMark())) {
                 indicatePoints(3, 5);
 
-            } else if (winPositions(2, 0, list.get(6).getMark())) {
+            } else if (winPositionsToPaint(2, 0, list.get(6).getMark())) {
                 indicatePoints(6, 8);
 
-            } else if (winPositions(1, 1, list.get(6).getMark())
-                    && list.get(6).getMark() == list.get(2).getMark()) {
+            } else if (winPositionsToPaint(1, 1, list.get(6).getMark())
+                    && list.get(2).getMark() == list.get(6).getMark()) {
                 indicatePoints(6, 2);
 
-            } else if (winPositions(1, 1, list.get(8).getMark())
+            } else if (winPositionsToPaint(1, 1, list.get(8).getMark())
                     && list.get(8).getMark() == list.get(0).getMark()) {
                 indicatePoints(8, 0);
             }

@@ -26,23 +26,20 @@ public class GameService {
 
 
     public void startGame() {
-
         paintService.setService(detectionService, aiService);
+        if (!gameOver) {
+            detectionService.detect();
 
-        if (!gameOver) { detectionService.detect();}
-
+        }
         paintService.paint();
-
     }
 
     public void restartGame() {
-
         detectionService.restart();
         paintService.restart();
         coordinateService.restart();
         aiService.restart();
         gameOver = false;
-
     }
 
 

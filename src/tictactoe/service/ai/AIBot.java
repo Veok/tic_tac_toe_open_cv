@@ -32,47 +32,36 @@ public class AIBot {
                 if (turn >= 9) {
                     break;
                 }
-
-                cellId = findBestMove();
-
+                cellId = searchBestMoveForAI();
             } while (cells.get(cellId).isPainted());
             turn++;
         }
 
     }
 
-    private boolean win(Mark mark) {
-
-        return WinLineCoordinate.rowWin(0, mark) || WinLineCoordinate.rowWin(1, mark)
-                || WinLineCoordinate.rowWin(2, mark) || WinLineCoordinate.columnWin(0, mark)
-                || WinLineCoordinate.columnWin(1, mark) || WinLineCoordinate.columnWin(2, mark)
-                || WinLineCoordinate.firstCrossWin(mark) || WinLineCoordinate.secondCrossWin(mark);
-
-    }
 
     private int evaluate() {
 
-        if (win(Mark.Nought)) {
+        if (WinLineCoordinate.checkIfWin(Mark.Nought)) {
             return -10;
-        } else if (win(Mark.Cross)) {
+        } else if (WinLineCoordinate.checkIfWin(Mark.Cross)) {
             return 10;
         }
         return 0;
     }
 
-    private int minMax(int depth, boolean isMax) {
+    private int minMax(boolean isMax) {
 
         int score = evaluate();
 
-        if (score == 10) {
-            return  depth;
-        }
-        if (score == -10) {
+        if (score == 10 || score == -10) {
             return score;
         }
+
         if (!isMovesLeft()) {
             return 0;
         }
+
         if (isMax) {
             int bestCross = -1000;
             for (int i = 0; i < 3; i++) {
@@ -80,7 +69,7 @@ public class AIBot {
 
                     if (CellCoordinate.getMarkBoard()[i][j] == null) {
                         CellCoordinate.setMarkBoard(i, j, Mark.Cross);
-                        bestCross = Math.max(bestCross, minMax(depth + 1, false));
+                        bestCross = Math.max(bestCross, minMax(false));
                         CellCoordinate.setMarkBoard(i, j, null);
                     }
                 }
@@ -93,7 +82,7 @@ public class AIBot {
 
                     if (CellCoordinate.getMarkBoard()[i][j] == null) {
                         CellCoordinate.setMarkBoard(i, j, Mark.Nought);
-                        bestNought = Math.min(bestNought, minMax(depth + 1, true));
+                        bestNought = Math.min(bestNought, minMax(true));
                         CellCoordinate.setMarkBoard(i, j, null);
                     }
                 }
@@ -102,7 +91,7 @@ public class AIBot {
         }
     }
 
-    public int findBestMove() {
+    private int searchBestMoveForAI() {
 
         int best = -1000;
         int id = 0;
@@ -111,22 +100,16 @@ public class AIBot {
             for (int j = 0; j < 3; j++) {
                 if (CellCoordinate.getMarkBoard()[i][j] == null) {
                     CellCoordinate.setMarkBoard(i, j, Mark.Cross);
-                    int move = minMax(0, false);
+                    int move = minMax(false);
                     CellCoordinate.setMarkBoard(i, j, null);
-
                     if (move > best) {
                         for (Cell cell : cells) {
-                            System.out.println("move value: "+ move
-                                    + " i: " + i + " j: " + j + " row: " + cell.getRow() + " column: "
-                                    + cell.getColumn()
-                                    + " id: " + cell.getId());
                             best = move;
                             if (i == cell.getRow() && j == cell.getColumn()) {
                                 id = cell.getId();
                             }
                         }
                     }
-
                 }
             }
         }

@@ -14,17 +14,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Lelental on 02.06.2017.
  */
-public class AIBotTest {
+class AIBotTest {
 
     private CoordinateService coordinateService = new CoordinateService();
     private AIService aiService = new AIService(coordinateService.getCellCoordinate().getCells());
 
     @Test
-    public void test_make_move() {
+    void test_make_move() {
 
         CellCoordinate.setMarkBoard(1, 2, Mark.Nought);
-      //  CellCoordinate.setMarkBoard(0, 0, Mark.Cross);
-      //  CellCoordinate.setMarkBoard(1, 1, Mark.Nought);
+        CellCoordinate.setMarkBoard(0, 0, Mark.Cross);
+        CellCoordinate.setMarkBoard(1, 1, Mark.Nought);
 
         AIService.turn = 3;
 
@@ -44,7 +44,7 @@ public class AIBotTest {
         System.out.println("Board after AI move:\n");
         printBoard();
 
-        assertEquals(2, chosenCell);
+        assertEquals(3, chosenCell);
     }
 
     private void printBoard() {
