@@ -35,7 +35,7 @@ public class Nought implements ICanBePainted {
             double x = pointOfCircle.x;
             double y = pointOfCircle.y;
             int radius = 50;
-            Scalar noughtColor = new Scalar(0,10,255);
+            Scalar noughtColor = new Scalar(0, 230, 0);
 
             for (Cell cell : cells) {
 
