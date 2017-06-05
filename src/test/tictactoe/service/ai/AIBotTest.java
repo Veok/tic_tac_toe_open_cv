@@ -30,8 +30,8 @@ class AIBotTest {
 
         System.out.println("Board before AI move:\n");
         printBoard();
-        aiService.getAIBot().makeMove();
-        int chosenCell = aiService.getAIBot().getCellId();
+        aiService.makeMove();
+        int chosenCell = aiService.getAiBot().getCellId();
 
         System.out.println("\nBest cell id chosen by AI: " + chosenCell + "\n");
 
