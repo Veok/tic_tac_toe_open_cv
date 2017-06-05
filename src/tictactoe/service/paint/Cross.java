@@ -34,8 +34,8 @@ public class Cross implements ICanBePainted {
 
         if (turn > 0) {
 
-            aiService.getAIBot().makeMove();
-            Cell cell2 = cells.get(aiService.getAIBot().getCellId());
+            aiService.makeMove();
+            Cell cell2 = cells.get(aiService.getAiBot().getCellId());
 
             for (Cell cell : cells) {
 

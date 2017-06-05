@@ -26,7 +26,7 @@ public class AIBot {
         return cellId;
     }
 
-    public void makeMove() {
+    void makeMove() {
 
         if (turn % 2 != 0) {
             do {
