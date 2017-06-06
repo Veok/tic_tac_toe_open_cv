@@ -6,7 +6,6 @@ import tictactoe.service.coordinates.CellCoordinate;
 import tictactoe.service.coordinates.WinLineCoordinate;
 
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 import static tictactoe.service.ai.AIService.turn;
 
@@ -33,9 +32,6 @@ public class AIBot {
                 if (turn >= 9) {
                     break;
                 }
-                if (turn == 1) {
-                    cellId = ThreadLocalRandom.current().nextInt(0, 9);
-                } else
                     cellId = searchBestMoveForAI();
             } while (cells.get(cellId).isPainted());
             turn++;
