@@ -19,9 +19,9 @@ public class GameService {
 
     protected GameService(VideoController video) {
         this.coordinateService = new CoordinateService();
-        this.aiService = new AIService(coordinateService.getCellCoordinate().getCells());
+        this.aiService = new AIService(coordinateService.getCells());
         this.detectionService = new DetectionService(video.getMat());
-        this.paintService = new PaintService(video.getMat(), coordinateService.getCellCoordinate().getCells());
+        this.paintService = new PaintService(video.getMat(), coordinateService.getCells());
     }
 
 
