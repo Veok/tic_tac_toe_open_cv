@@ -1,10 +1,9 @@
-package test.tictactoe.service.ai;
+package tictactoe.service.ai;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tictactoe.model.Cell;
 import tictactoe.model.Mark;
-import tictactoe.service.ai.AIService;
 import tictactoe.service.coordinates.CoordinateService;
 
 import java.util.Arrays;
