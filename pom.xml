@@ -26,13 +26,7 @@
                 </configuration>
             </plugin>
         </plugins>
-        <resources>
-            <resource>
-                <filtering>false</filtering>
-                <directory>src.resources</directory>
-                <includes>**/*.fxml</includes>
-            </resource>
-        </resources>
+
     </build>
     <dependencies>
     <!-- https://mvnrepository.com/artifact/junit/junit -->
