@@ -2,8 +2,7 @@ package tictactoe.service.ai;
 
 import tictactoe.model.Cell;
 import tictactoe.model.Mark;
-import tictactoe.service.coordinates.CellCoordinate;
-import tictactoe.service.coordinates.WinLineCoordinate;
+import tictactoe.service.coordinates.CoordinateService;
 
 import java.util.List;
 
@@ -14,12 +13,12 @@ import static tictactoe.service.ai.AIService.turn;
  */
 public class AIBot {
 
+    private List<Cell> cells;
+    private static int cellId;
+
     AIBot(List<Cell> cells) {
         this.cells = cells;
     }
-
-    private List<Cell> cells;
-    private static int cellId;
 
     public int getCellId() {
         return cellId;
@@ -32,19 +31,18 @@ public class AIBot {
                 if (turn >= 9) {
                     break;
                 }
-                    cellId = searchBestMoveForAI();
+                cellId = searchBestMoveForAI();
             } while (cells.get(cellId).isPainted());
             turn++;
         }
 
     }
 
-
     private int evaluate() {
 
-        if (WinLineCoordinate.checkIfWin(Mark.Nought)) {
+        if (CoordinateService.checkIfWin(Mark.Nought)) {
             return -10;
-        } else if (WinLineCoordinate.checkIfWin(Mark.Cross)) {
+        } else if (CoordinateService.checkIfWin(Mark.Cross)) {
             return 10;
         }
         return 0;
@@ -69,10 +67,10 @@ public class AIBot {
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
 
-                    if (CellCoordinate.getMarkBoard()[i][j] == null) {
-                        CellCoordinate.setMarkBoard(i, j, Mark.Cross);
+                    if (CoordinateService.getMarkBoard()[i][j] == null) {
+                        CoordinateService.setMarkBoard(i, j, Mark.Cross);
                         bestCross = Math.max(bestCross, minMax(depth + 1, false));
-                        CellCoordinate.setMarkBoard(i, j, null);
+                        CoordinateService.setMarkBoard(i, j, null);
                     }
                 }
             }
@@ -82,10 +80,10 @@ public class AIBot {
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
 
-                    if (CellCoordinate.getMarkBoard()[i][j] == null) {
-                        CellCoordinate.setMarkBoard(i, j, Mark.Nought);
+                    if (CoordinateService.getMarkBoard()[i][j] == null) {
+                        CoordinateService.setMarkBoard(i, j, Mark.Nought);
                         bestNought = Math.min(bestNought, minMax(depth + 1, true));
-                        CellCoordinate.setMarkBoard(i, j, null);
+                        CoordinateService.setMarkBoard(i, j, null);
                     }
                 }
             }
@@ -100,10 +98,10 @@ public class AIBot {
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (CellCoordinate.getMarkBoard()[i][j] == null) {
-                    CellCoordinate.setMarkBoard(i, j, Mark.Cross);
+                if (CoordinateService.getMarkBoard()[i][j] == null) {
+                    CoordinateService.setMarkBoard(i, j, Mark.Cross);
                     int move = minMax(0, false);
-                    CellCoordinate.setMarkBoard(i, j, null);
+                    CoordinateService.setMarkBoard(i, j, null);
                     if (move > best) {
                         for (Cell cell : cells) {
                             best = move;
@@ -121,7 +119,7 @@ public class AIBot {
     private boolean isMovesLeft() {
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
-                if (CellCoordinate.getMarkBoard()[i][j] == null)
+                if (CoordinateService.getMarkBoard()[i][j] == null)
                     return true;
         return false;
     }

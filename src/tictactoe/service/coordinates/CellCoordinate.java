@@ -22,7 +22,6 @@ public class CellCoordinate {
     private final int THIRD_LINE = CAMERA_HEIGHT;
 
     private ArrayList<Cell> cells;
-
     private static Mark[][] markBoard = new Mark[3][3];
 
 
@@ -31,17 +30,16 @@ public class CellCoordinate {
         setListOfCells();
     }
 
-    public ArrayList<Cell> getCells() {
+    ArrayList<Cell> getCells() {
         return cells;
     }
 
 
-    public static void setMarkBoard(int row, int column, Mark mark) {
+    static void setMarkBoard(int row, int column, Mark mark) {
         markBoard[row][column] = mark;
-
     }
 
-    public static Mark[][] getMarkBoard() {
+    static Mark[][] getMarkBoard() {
         return markBoard;
     }
 

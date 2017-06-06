@@ -9,7 +9,7 @@ import org.opencv.imgproc.Imgproc;
 
 import java.util.List;
 
-import static tictactoe.service.coordinates.WinLineCoordinate.winPositionsToPaint;
+import static tictactoe.service.coordinates.CoordinateService.winPositionsToPaint;
 
 /**
  * @author Lelental on 05.05.2017.

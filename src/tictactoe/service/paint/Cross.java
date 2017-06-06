@@ -1,13 +1,13 @@
 package tictactoe.service.paint;
 
-import tictactoe.model.Cell;
-import tictactoe.model.Mark;
-import tictactoe.service.ai.AIService;
-import tictactoe.service.coordinates.CellCoordinate;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
+import tictactoe.model.Cell;
+import tictactoe.model.Mark;
+import tictactoe.service.ai.AIService;
+import tictactoe.service.coordinates.CoordinateService;
 
 import java.util.List;
 
@@ -54,7 +54,7 @@ public class Cross implements ICanBePainted {
                     cell = cell2;
                     cell.setPainted(true);
                     cell.setMark(Mark.Cross);
-                    CellCoordinate.setMarkBoard(cell.getRow(), cell.getColumn(), cell.getMark());
+                    CoordinateService.setMarkBoard(cell.getRow(), cell.getColumn(), cell.getMark());
                 }
             }
         }

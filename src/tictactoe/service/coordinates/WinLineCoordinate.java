@@ -8,9 +8,9 @@ import static tictactoe.service.coordinates.CellCoordinate.getMarkBoard;
 /**
  * @author Lelental on 05.05.2017.
  */
-public class WinLineCoordinate {
+class WinLineCoordinate {
 
-    public static boolean winPositionsToPaint(int row, int column, Mark mark) {
+    static boolean winPositionsToPaint(int row, int column, Mark mark) {
 
         if (mark != null) {
             if (rowWin(row, mark)) {
@@ -33,7 +33,7 @@ public class WinLineCoordinate {
         return false;
     }
 
-    public static boolean checkIfWin(Mark mark) {
+    static boolean checkIfWin(Mark mark) {
 
         return WinLineCoordinate.rowWin(0, mark) || WinLineCoordinate.rowWin(1, mark)
                 || WinLineCoordinate.rowWin(2, mark) || WinLineCoordinate.columnWin(0, mark)
